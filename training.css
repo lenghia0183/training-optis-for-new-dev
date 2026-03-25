@@ -1,0 +1,423 @@
+/* ── SHARED CSS cho các trang Training (option.html + swatch.html) ── */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #1e1e2e;
+  background: #f4f6fb;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(12, 42, 74, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0 48px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-weight: 800;
+  font-size: 15px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 900;
+  color: white;
+}
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+.nav-links a {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: white;
+}
+
+/* ── COVER ── */
+.cover {
+  background: linear-gradient(140deg, #0f172a 0%, #0c2340 55%, #0a3d6b 100%);
+  color: white;
+  padding: 72px 64px 56px;
+  margin-top: 58px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -80px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: rgba(14, 165, 233, 0.1);
+}
+.cover-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #0284c7, #0ea5e9);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 22px;
+}
+.cover h1 {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.cover h1 span {
+  color: #7dd3fc;
+}
+.cover .subtitle {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 36px;
+}
+.cover-meta {
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+.cover-meta-item {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+}
+.cover-meta-item strong {
+  color: white;
+  display: block;
+  font-size: 14px;
+}
+
+/* ── LAYOUT ── */
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px 72px;
+}
+
+/* ── TOC ── */
+.toc {
+  background: white;
+  border-radius: 12px;
+  padding: 30px 36px;
+  margin: 36px 0;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+  border-left: 4px solid #0ea5e9;
+}
+.toc h2 {
+  font-size: 17px;
+  color: #0ea5e9;
+  margin-bottom: 18px;
+}
+.toc ol {
+  padding-left: 22px;
+}
+.toc > ol > li {
+  margin-bottom: 7px;
+  font-weight: 600;
+}
+.toc a {
+  color: #1e293b;
+  text-decoration: none;
+}
+.toc a:hover {
+  color: #0ea5e9;
+}
+.toc .sub {
+  padding-left: 20px;
+  margin-top: 5px;
+  font-weight: 400;
+}
+.toc .sub li {
+  margin-bottom: 3px;
+  font-size: 14px;
+}
+
+/* ── SECTIONS ── */
+.section {
+  background: white;
+  border-radius: 12px;
+  padding: 36px 42px;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+}
+h2.section-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  padding-bottom: 14px;
+  border-bottom: 2px solid #f1f5f9;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+h2.section-title .num {
+  background: #0284c7;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0c4a6e;
+  margin: 24px 0 10px;
+  padding-left: 12px;
+  border-left: 3px solid #0ea5e9;
+}
+h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #374151;
+  margin: 16px 0 8px;
+}
+p {
+  margin-bottom: 12px;
+  color: #374151;
+}
+ul,
+ol {
+  padding-left: 22px;
+  margin-bottom: 12px;
+  color: #374151;
+}
+li {
+  margin-bottom: 6px;
+}
+
+/* ── BOXES ── */
+.box {
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.box strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.note {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+}
+.warn {
+  background: #fffbeb;
+  border-left: 4px solid #f59e0b;
+}
+.danger {
+  background: #fef2f2;
+  border-left: 4px solid #ef4444;
+}
+.tip {
+  background: #e0f2fe;
+  border-left: 4px solid #0284c7;
+}
+
+/* ── CODE ── */
+pre {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  border-radius: 8px;
+  padding: 18px 22px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 10px 0 18px;
+  font-family: "Consolas", "Cascadia Code", monospace;
+}
+code {
+  background: #f1f5f9;
+  color: #0369a1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: "Consolas", monospace;
+}
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+
+/* ── TABLE ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0 22px;
+  font-size: 14px;
+}
+th {
+  background: #0f172a;
+  color: white;
+  padding: 9px 14px;
+  text-align: left;
+  font-size: 13px;
+}
+td {
+  padding: 9px 14px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+tr:nth-child(even) td {
+  background: #f8fafc;
+}
+
+/* ── TAGS ── */
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 10px;
+}
+.ok {
+  background: #e0f2fe;
+  color: #075985;
+}
+.no {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ── STEPS ── */
+.steps {
+  list-style: none;
+  padding: 0;
+}
+.steps > li {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 18px;
+  align-items: flex-start;
+}
+.step-n {
+  background: #0284c7;
+  color: white;
+  font-weight: 700;
+  font-size: 12px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-body {
+  flex: 1;
+}
+.step-body strong {
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* ── FUNCTION CARDS ── */
+.fn-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  margin: 16px 0;
+  overflow: hidden;
+}
+.fn-header {
+  background: #f8fafc;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+.fn-name {
+  font-family: "Consolas", monospace;
+  font-weight: 700;
+  font-size: 14px;
+  color: #0c4a6e;
+}
+.fn-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 10px;
+  letter-spacing: 0.4px;
+}
+.fn-body {
+  padding: 14px 18px;
+}
+.fn-body p {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 13px;
+  padding: 24px 0;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 8px;
+}
+
+/* ── PRINT ── */
+@media print {
+  nav {
+    display: none;
+  }
+  body {
+    background: white;
+  }
+  .section {
+    box-shadow: none;
+    border: 1px solid #e2e8f0;
+  }
+}

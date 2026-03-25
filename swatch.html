@@ -1,0 +1,1805 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Training – OP Color Swatch Variant Images</title>
+    <link rel="stylesheet" href="training.css" />
+    <style>
+      /* ── Function tag colors (swatch-specific) ── */
+      .ft-core {
+        background: #e0f2fe;
+        color: #0c4a6e;
+      }
+      .ft-ui {
+        background: #f3e8ff;
+        color: #7e22ce;
+      }
+      .ft-theme {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+      .ft-misc {
+        background: #f1f5f9;
+        color: #64748b;
+      }
+      /* ── Flow diagram (swatch-specific) ── */
+      .flow-diagram {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 20px 24px;
+        margin: 16px 0;
+      }
+      .flow-steps {
+        display: flex;
+        gap: 0;
+        align-items: stretch;
+        flex-wrap: wrap;
+      }
+      .flow-step {
+        flex: 1;
+        min-width: 140px;
+        text-align: center;
+        padding: 16px 12px;
+        position: relative;
+      }
+      .flow-step::after {
+        content: "→";
+        position: absolute;
+        right: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+        font-size: 18px;
+      }
+      .flow-step:last-child::after {
+        display: none;
+      }
+      .flow-icon {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+      .flow-title {
+        font-weight: 700;
+        font-size: 13px;
+        color: #0f172a;
+        margin-bottom: 4px;
+      }
+      .flow-desc {
+        font-size: 12px;
+        color: #64748b;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-mark">B</div>
+        BSS Commerce
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Trang chủ</a>
+        <a href="option.html">Training OPTIS</a>
+        <a href="swatch.html" class="active">Training Swatch</a>
+      </div>
+    </nav>
+    <div class="cover">
+      <div class="cover-badge">Internal Training Document</div>
+      <h1>OP <span>Color Swatch</span><br />Variant Images</h1>
+      <p class="subtitle">
+        Tài liệu onboarding cho developer mới – App Swatch trên Shopify
+      </p>
+      <div class="cover-meta">
+        <div class="cover-meta-item"><strong>Team</strong>BSS Commerce</div>
+        <div class="cover-meta-item"><strong>Author</strong>NghiaLC</div>
+        <div class="cover-meta-item"><strong>Cập nhật</strong>2026</div>
+        <div class="cover-meta-item">
+          <strong>Đối tượng</strong>Developer mới
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="toc">
+        <h2>📋 Mục Lục</h2>
+        <ol>
+          <li><a href="#s1">Tổng Quan – App Swatch là gì?</a></li>
+          <li><a href="#s2">Các Tính Năng Của App</a></li>
+          <li><a href="#s3">Cơ Chế Hoạt Động Cốt Lõi – Click-through</a></li>
+          <li><a href="#s4">Theme Config – Trái Tim Của App</a></li>
+          <li><a href="#s5">Luồng Chạy (Execution Flow)</a></li>
+          <li>
+            <a href="#s6">Các Hàm Support – Cơ Chế và Tổng Quan</a>
+            <ol class="sub">
+              <li><a href="#s6-list">Danh sách hàm support thường dùng</a></li>
+            </ol>
+          </li>
+          <li><a href="#s7">Các Bug Hay Gặp – Nguyên Nhân và Cách Fix</a></li>
+        </ol>
+      </div>
+
+      <!-- ===== SECTION 1 ===== -->
+      <div class="section" id="s1">
+        <h2 class="section-title">
+          <span class="num">1</span>Tổng Quan – App Swatch là gì?
+        </h2>
+
+        <h3>
+          Vấn đề: Variant selector mặc định của Shopify không đủ đẹp và thiếu
+          linh hoạt
+        </h3>
+        <p>
+          Mặc định, Shopify hiển thị các variant (màu sắc, size…) dưới dạng
+          dropdown hoặc radio button text đơn giản. Khách hàng không thể nhìn
+          thấy màu thực tế hay hình ảnh của từng variant trước khi chọn — trải
+          nghiệm mua sắm kém và tỉ lệ chuyển đổi thấp hơn.
+        </p>
+        <p>
+          Thêm vào đó, nếu store bán nhiều sản phẩm cùng dòng nhưng khác màu (ví
+          dụ: áo đỏ, áo xanh, áo vàng là 3 sản phẩm riêng biệt), Shopify không
+          có cách nào để nhóm chúng lại thành một nhóm hiển thị swatch chung
+          trên trang listing.
+        </p>
+
+        <div class="box warn">
+          <strong>⚠️ Giới hạn của Shopify mặc định</strong>
+          Variant selector chỉ là text hoặc dropdown — không có swatch màu,
+          không có ảnh thumbnail, không thể nhóm nhiều sản phẩm lại thành một
+          group để hiển thị chung.
+        </div>
+
+        <h3>Giải pháp: OP Color Swatch Variant Images</h3>
+        <p>
+          <strong>OP Color Swatch Variant Images</strong> là Shopify app của
+          BSS/OPTIS thay thế hoàn toàn phần hiển thị variant mặc định của theme
+          bằng swatch đẹp hơn — color swatch, image swatch, button — đồng thời
+          bổ sung các tính năng nâng cao như Combined Listing, Variant Images,
+          Quick View và đa ngôn ngữ.
+        </p>
+
+        <table>
+          <tr>
+            <th>Không có app</th>
+            <th>Có app</th>
+          </tr>
+          <tr>
+            <td>Dropdown / radio button text thuần</td>
+            <td>Color swatch, Image swatch, Button — trực quan và đẹp hơn</td>
+          </tr>
+          <tr>
+            <td>Mỗi màu là một sản phẩm riêng biệt, không liên kết</td>
+            <td>
+              Combined Listing: nhóm nhiều sản phẩm thành 1 group swatch chung
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Đổi variant không đổi ảnh (hoặc phụ thuộc hoàn toàn vào theme)
+            </td>
+            <td>
+              Variant Images: app tự kiểm soát việc hiển thị đúng ảnh theo
+              variant
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Swatch chỉ có ở product page, không có ở collection page hay Quick
+              View
+            </td>
+            <td>
+              App hiển thị swatch trên product page, collection page, và cả
+              Quick View modal
+            </td>
+          </tr>
+          <tr>
+            <td>Tên option/value chỉ có 1 ngôn ngữ</td>
+            <td>
+              Translation: tự đồng bộ tên option/value theo ngôn ngữ hiện tại
+              của store
+            </td>
+          </tr>
+        </table>
+
+        <h3>App hoạt động như thế nào?</h3>
+        <p>
+          Khi merchant cài app, một file JavaScript của app được inject vào
+          theme. App chạy trên hầu hết các trang của store (product page,
+          collection page, home page…), ngoại trừ các trang mà Shopify không cho
+          phép inject JS như <strong>checkout</strong> và
+          <strong>trang profile khách hàng</strong>.
+        </p>
+        <p>
+          Điểm khác biệt cốt lõi so với các app thông thường: app
+          <strong>không tự xử lý logic variant</strong> mà tận dụng lại toàn bộ
+          event và logic của theme thông qua cơ chế
+          <strong>click-through</strong> (xem Phần 3).
+        </p>
+
+        <div class="box note">
+          <strong>📌 Ghi nhớ cho dev mới</strong>
+          Vì mỗi Shopify theme có cấu trúc HTML và logic variant khác nhau, phần
+          lớn công việc support là cấu hình <strong>Theme Config</strong> đúng
+          cho từng theme — thông qua cơ chế hàm
+          <code>swatchFixSupport*</code> (tương tự
+          <code>bssFixSupport*</code> của OPTIS).
+        </div>
+      </div>
+
+      <!-- ===== SECTION 2 ===== -->
+      <div class="section" id="s2">
+        <h2 class="section-title">
+          <span class="num">2</span>Các Tính Năng Của App
+        </h2>
+        <p>
+          Phần này mô tả các tính năng chính mà merchant hay sử dụng — mỗi tính
+          năng làm gì và tại sao cần nó.
+        </p>
+
+        <h3>Color / Image Swatch</h3>
+        <p>
+          Thay thế variant selector mặc định của theme (dropdown/radio text)
+          bằng swatch trực quan. App hỗ trợ hiển thị swatch trên 3 ngữ cảnh:
+        </p>
+        <ul>
+          <li>
+            <strong>Product page:</strong> Swatch hiển thị trong trang sản phẩm,
+            thay thế hoàn toàn selector gốc của theme.
+          </li>
+          <li>
+            <strong>Collection / Home page:</strong> Swatch hiển thị ngay trên
+            từng product card — khách có thể đổi variant mà không cần vào
+            product page.
+          </li>
+          <li>
+            <strong>Quick View:</strong> App tự động inject swatch vào modal
+            Quick View của theme. Vì Quick View thường render DOM muộn hơn
+            (theme cần call API để lấy data trước), app dùng MutationObserver để
+            theo dõi và inject swatch đúng thời điểm.
+          </li>
+        </ul>
+        <p>
+          Merchant có thể cấu hình
+          <strong
+            >kiểu hiển thị khác nhau cho product page và collection page</strong
+          >
+          — ví dụ: product page dùng Auto image swatch, collection page dùng
+          Button. App hỗ trợ 6 kiểu hiển thị:
+        </p>
+        <table>
+          <tr>
+            <th>Kiểu hiển thị</th>
+            <th>Mô tả</th>
+            <th>Nguồn ảnh / dữ liệu</th>
+          </tr>
+          <tr>
+            <td><strong>Auto image swatch</strong></td>
+            <td>
+              Hiển thị ảnh thumbnail tròn/vuông cho từng variant value. App tự
+              động lấy ảnh — không cần cấu hình thêm.
+            </td>
+            <td>Tự lấy ảnh đầu tiên được gán cho variant đó trong Shopify</td>
+          </tr>
+          <tr>
+            <td><strong>Custom swatch</strong></td>
+            <td>
+              Hiển thị ô màu hoặc ảnh tùy chỉnh. Merchant tự gán màu hex hoặc
+              upload ảnh cho từng value trong admin app.
+            </td>
+            <td>Màu hex hoặc ảnh do merchant upload trong admin</td>
+          </tr>
+          <tr>
+            <td><strong>Swatch card</strong></td>
+            <td>
+              Hiển thị dạng card lớn hơn, bao gồm ảnh variant, tên value và giá.
+              Có 2 chế độ: <em>auto</em> (tự lấy ảnh từ Shopify) và
+              <em>custom</em> (merchant upload ảnh/chọn màu).
+            </td>
+            <td>
+              Auto: ảnh đầu tiên của variant. Custom: ảnh/màu do merchant cấu
+              hình
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Button</strong></td>
+            <td>
+              Hiển thị dạng nút chữ — phù hợp cho các option như size (S, M, L,
+              XL) hoặc các giá trị không có ảnh đại diện.
+            </td>
+            <td>Text value của variant</td>
+          </tr>
+          <tr>
+            <td><strong>Dropdown</strong></td>
+            <td>
+              Menu thả xuống — tương tự mặc định của Shopify nhưng được style
+              lại theo thiết kế của app.
+            </td>
+            <td>Text value của variant</td>
+          </tr>
+          <tr>
+            <td><strong>No show</strong></td>
+            <td>
+              Ẩn hoàn toàn swatch của app cho option này — giữ nguyên selector
+              gốc của theme hoặc dùng custom code riêng. Hữu ích khi muốn app
+              chạy trên collection page nhưng không hiển thị option đó trên
+              product page.
+            </td>
+            <td>—</td>
+          </tr>
+        </table>
+
+        <h3>Combined Listing (Product Group)</h3>
+        <p>
+          Trên Shopify, mỗi màu sắc hay phiên bản của một sản phẩm thường được
+          tạo thành
+          <strong>các sản phẩm riêng biệt</strong> — ví dụ "Áo đỏ", "Áo xanh",
+          "Áo vàng" là 3 sản phẩm độc lập với 3 trang riêng. Mặc định Shopify
+          không có cách nào hiển thị chúng như một nhóm chung.
+        </p>
+        <p>
+          Combined Listing giải quyết điều đó: merchant vào admin app,
+          <strong>tự tạo một group</strong> và chọn các sản phẩm muốn nhóm lại
+          với nhau. Sau khi tạo group, app hiển thị
+          <strong>swatch chung</strong> cho toàn bộ sản phẩm trong group — trên
+          cả <strong>collection page</strong> (ngay trên product card) lẫn
+          <strong>product page</strong> (trong trang sản phẩm hiện tại).
+        </p>
+        <p>
+          Khi khách bấm vào swatch của màu khác (ví dụ: từ đỏ sang xanh), app
+          <strong>redirect toàn trang</strong> sang URL của sản phẩm "Áo xanh"
+          tương ứng — đảm bảo URL, SEO, và toàn bộ thông tin sản phẩm đều đúng
+          với sản phẩm được chọn.
+        </p>
+        <div class="box tip">
+          <strong>✅ Ví dụ thực tế</strong>
+          Store thời trang bán áo khoác với 5 màu, mỗi màu là 1 sản phẩm riêng
+          trong Shopify. Merchant tạo 1 group gồm 5 sản phẩm đó. Trên collection
+          page, mỗi card hiển thị 5 ô swatch màu — khách bấm màu nào thì chuyển
+          thẳng sang trang sản phẩm màu đó. Trên product page của "Áo đỏ", cũng
+          hiển thị swatch 5 màu để khách dễ dàng chuyển sang màu khác mà không
+          cần quay lại collection.
+        </div>
+
+        <h3>Variant Images</h3>
+        <p>
+          Mặc định Shopify gán ảnh cho từng variant, nhưng việc gallery có cập
+          nhật đúng ảnh khi đổi variant hay không phụ thuộc hoàn toàn vào theme
+          — và nhiều theme xử lý việc này không tốt hoặc không nhất quán.
+        </p>
+        <p>
+          Variant Images cho phép app
+          <strong>tự kiểm soát hoàn toàn</strong> việc hiển thị ảnh: khi khách
+          chọn một variant,
+          <strong>toàn bộ ảnh không thuộc variant đó bị ẩn đi</strong>, chỉ hiển
+          thị đúng ảnh của variant đang được chọn. Chuyển sang variant khác →
+          gallery cập nhật lại ngay lập tức theo đúng ảnh của variant mới.
+        </p>
+        <p>
+          Ví dụ: sản phẩm áo khoác có 3 màu (đỏ/xanh/vàng), mỗi màu có 4 ảnh
+          chụp góc khác nhau. Khi chọn màu đỏ → gallery chỉ hiện 4 ảnh đỏ.
+          Chuyển sang xanh → gallery thay bằng 4 ảnh xanh, ảnh đỏ bị ẩn hoàn
+          toàn.
+        </p>
+        <p>App hỗ trợ hai chế độ xử lý gallery:</p>
+        <ul>
+          <li>
+            <strong>Mặc định — Ghi đè gallery của theme:</strong> App dùng Theme
+            Config (<code>variantImg.mediaSelectors</code>) để xác định các item
+            ảnh trong gallery của theme, sau đó ẩn/hiện chúng theo variant đang
+            chọn. Cách này tận dụng gallery sẵn có của theme — layout,
+            animation, zoom… đều giữ nguyên.
+          </li>
+          <li>
+            <strong>Swiper Gallery — App tự render gallery riêng:</strong> Khi
+            bật <code>swatchFixSupportUseVariantImagesSwiper</code>, app thay
+            thế hoàn toàn gallery của theme bằng gallery riêng dùng Swiper.js —
+            hỗ trợ main slider, thumbnail, zoom modal, và có thể tùy chỉnh
+            config Swiper qua các hàm support tương ứng.
+          </li>
+        </ul>
+        <div class="box note">
+          <strong>📌 Lưu ý cho dev</strong>
+          App theo dõi <code>input[name='id']</code> bằng MutationObserver — khi
+          theme cập nhật giá trị input này sau khi nhận click-through, app biết
+          variant đã đổi và chạy lại Variant Images logic. Một số theme không
+          cập nhật input này mà chỉ đổi URL — trường hợp đó cần dùng
+          <code>swatchFixSupportAddEventChangeVariantImages</code>
+          để theo dõi URL thay thế.
+        </div>
+
+        <h3>Translation / Multi-language</h3>
+        <p>
+          Shopify hỗ trợ đa ngôn ngữ thông qua Shopify Markets và Translate
+          &amp; Adapt — merchant có thể dịch tên sản phẩm, option, value sang
+          nhiều ngôn ngữ khác nhau. Storefront API cũng trả về dữ liệu đã được
+          dịch theo ngôn ngữ hiện tại của store.
+        </p>
+        <p>
+          Tuy nhiên, vì app <strong>tự render lại DOM</strong> của variant
+          selector thay vì dùng HTML sẵn có từ Liquid, app cần
+          <strong>tự đọc và xử lý thêm</strong> để hiển thị đúng ngôn ngữ. Cụ
+          thể:
+        </p>
+        <ul>
+          <li>
+            <strong>Ngôn ngữ hiện tại:</strong> App đọc dữ liệu sản phẩm từ
+            <strong>script tag JSON mà Liquid đã render sẵn trong DOM</strong>
+            — dữ liệu này đã được Shopify dịch sang ngôn ngữ hiện tại của store
+            (ví dụ: "Màu sắc", "Đỏ", "Xanh").
+          </li>
+          <li>
+            <strong>Ngôn ngữ mặc định:</strong> App gọi thêm
+            <strong>Storefront API với ngôn ngữ mặc định của store</strong> để
+            lấy tên gốc (ví dụ: "Color", "Red", "Blue").
+          </li>
+          <li>
+            App dùng tên gốc làm <strong>key để match</strong> với cấu hình
+            swatch đã lưu trong DB (vì merchant tạo swatch theo ngôn ngữ mặc
+            định), sau đó hiển thị tên đã dịch cho khách.
+          </li>
+        </ul>
+        <div class="box note">
+          <strong>📌 Tại sao cần đọc từ 2 nguồn?</strong>
+          Cấu hình swatch (màu hex, ảnh custom…) được lưu theo tên value của
+          <em>ngôn ngữ mặc định</em>. Nếu chỉ đọc ngôn ngữ hiện tại, app không
+          thể biết "Đỏ" tương ứng với config nào trong DB. Gọi thêm API theo
+          ngôn ngữ mặc định giải quyết vấn đề mapping này.
+        </div>
+      </div>
+
+      <!-- ===== SECTION 3 ===== -->
+      <div class="section" id="s3">
+        <h2 class="section-title">
+          <span class="num">3</span>Cơ Chế Hoạt Động Cốt Lõi – Click-through
+        </h2>
+
+        <h3>Vấn đề nếu app tự xử lý variant</h3>
+        <p>
+          Mỗi Shopify theme có logic xử lý variant riêng: cập nhật giá, đổi ảnh,
+          bật/tắt nút ATC, hiển thị stock… Nếu app tự xử lý việc đổi variant
+          (gọi API, cập nhật DOM trực tiếp), app phải tái tạo lại toàn bộ logic
+          đó cho từng theme — rất tốn công và dễ miss edge case.
+        </p>
+
+        <h3>Giải pháp: Click-through</h3>
+        <p>
+          App dùng cơ chế <strong>click-through</strong>: thay vì tự xử lý, app
+          <strong>ẩn variant selector gốc của theme đi</strong> rồi render
+          swatch của mình lên trên. Khi khách bấm vào swatch của app, app
+          <strong
+            >tìm đúng element (input radio/option) tương ứng trong variant
+            selector đã ẩn</strong
+          >
+          rồi <strong>programmatically click vào đó</strong>.
+        </p>
+        <p>
+          Kết quả: theme nhận được đúng click event trên element của nó → toàn
+          bộ logic của theme (cập nhật giá, đổi ảnh, kiểm tra stock, bật/tắt
+          ATC…) chạy bình thường — như thể khách tự click vào variant selector
+          gốc.
+        </p>
+
+        <div class="flow-diagram">
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="flow-icon">👁️</div>
+              <div class="flow-title">App ẩn selector gốc</div>
+              <div class="flow-desc">
+                Variant selector của theme bị ẩn bằng CSS, không xóa khỏi DOM
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">🎨</div>
+              <div class="flow-title">Render swatch của app</div>
+              <div class="flow-desc">
+                App inject swatch đẹp lên trên vị trí selector gốc
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">👆</div>
+              <div class="flow-title">Khách bấm swatch</div>
+              <div class="flow-desc">
+                Khách click vào color/image swatch của app
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">🔍</div>
+              <div class="flow-title">App tìm element tương ứng</div>
+              <div class="flow-desc">
+                Dùng Theme Config để xác định đúng input/option trong selector
+                gốc đã ẩn
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">⚡</div>
+              <div class="flow-title">Click programmatically</div>
+              <div class="flow-desc">
+                App click vào element gốc → theme xử lý toàn bộ như bình thường
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box tip">
+          <strong>✅ Lợi ích của click-through</strong>
+          App không cần tái tạo logic của theme. Giá, ảnh, stock, ATC button —
+          tất cả cập nhật chính xác vì theme tự xử lý sau khi nhận click. App
+          chỉ cần biết đúng selector để click vào.
+        </div>
+
+        <div class="box warn">
+          <strong>⚠️ Hệ quả cho dev</strong>
+          Nếu Theme Config có <code>optionSelector</code> sai — app tìm không ra
+          element cần click → variant không đổi dù khách đã bấm swatch. Đây là
+          nguyên nhân phổ biến nhất khi swatch hiển thị được nhưng không hoạt
+          động.
+        </div>
+      </div>
+
+      <!-- ===== SECTION 4 ===== -->
+      <div class="section" id="s4">
+        <h2 class="section-title">
+          <span class="num">4</span>Theme Config – Trái Tim Của App
+        </h2>
+
+        <h3>Theme Config là gì?</h3>
+        <p>
+          Theme Config là một object JavaScript mô tả
+          <strong>cấu trúc HTML của từng theme</strong>
+          — nơi nào là wrapper sản phẩm, selector nào là variant picker, input
+          nào chứa variant ID, element nào là giá, element nào là nút ATC…
+        </p>
+        <p>
+          App dùng Theme Config để biết: ẩn cái gì, click vào đâu, cập nhật phần
+          tử nào khi đổi variant.
+          <strong
+            >Không có Theme Config đúng = app không hoạt động được.</strong
+          >
+        </p>
+        <p>
+          Config được lưu trong source code của app, có sẵn cho các theme phổ
+          biến. Khi gặp theme chưa có config hoặc config không khớp, dev dùng
+          hàm
+          <code>swatchFixSupportThemeConfig</code> trên Vahu để
+          <strong>ghi đè config cho store đó</strong>.
+        </p>
+
+        <div class="box note">
+          <strong>📌 Quy trình chung khi viết Theme Config mới</strong>
+          Mở storefront → F12 → inspect từng vùng cần tìm → ghi lại selector →
+          tạo object config → viết <code>swatchFixSupportThemeConfig</code> trên
+          Vahu → test lại.
+        </div>
+
+        <h3>Cấu trúc tổng quan</h3>
+        <pre><code>{
+  name: string | string[],
+  theme_store_id: number | number[],
+  type?: string,          // ví dụ: 'free-v2'
+
+  product: { ... },       // product page
+  collection: { ... },    // collection / home page
+  quickView: { ... },     // quick view modal
+  variantImg: { ... },    // tính năng đổi ảnh theo variant
+}</code></pre>
+
+        <!-- ── PRODUCT ── -->
+        <h3>Nhóm <code>product</code> — Product Page</h3>
+        <table>
+          <tr>
+            <th style="width: 18%">Field</th>
+            <th>Mô tả</th>
+            <th>Cách xác định (F12)</th>
+            <th>Ví dụ</th>
+          </tr>
+          <tr>
+            <td><code>wrapper</code></td>
+            <td>
+              Scope bọc toàn bộ thông tin sản phẩm. Mọi query đều bắt đầu từ
+              đây.
+            </td>
+            <td>
+              Inspect vùng chứa tên + giá + variant → tìm element cha chung gần
+              nhất
+            </td>
+            <td><code>'.product-information'</code></td>
+          </tr>
+          <tr>
+            <td><code>themeVariantPicker</code></td>
+            <td>
+              Container chứa toàn bộ variant selector gốc của theme. App
+              <strong>ẩn element này</strong> để thay bằng swatch.
+            </td>
+            <td>
+              Inspect vùng chọn size/màu → tìm element bao ngoài cùng (thường là
+              custom element như <code>variant-picker</code>)
+            </td>
+            <td><code>'variant-picker'</code></td>
+          </tr>
+          <tr>
+            <td><code>optionSelector</code></td>
+            <td>
+              Mảng cặp <code>{ option, value }</code>: <code>option</code> là
+              container từng nhóm lựa chọn, <code>value</code> là element app sẽ
+              <strong>programmatically click</strong> khi user chọn swatch.
+            </td>
+            <td>
+              Trong variant picker, xem theme dùng <code>fieldset</code> +
+              <code>input[radio]</code> hay <code>select</code> +
+              <code>option</code>
+            </td>
+            <td>
+              <code
+                >[{ option: 'fieldset', value: 'input[type="radio"]' }]</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td><code>variantId</code></td>
+            <td>
+              Input hidden chứa variant ID hiện tại. App observe element này
+              bằng MutationObserver để detect variant thay đổi.<br /><br /><em
+                >💡 Hầu hết các theme đều dùng <code>input[name='id']</code> —
+                có thể giữ nguyên giá trị này mà không cần inspect lại.</em
+              >
+            </td>
+            <td>Tìm <code>&lt;input name="id"&gt;</code> trong product form</td>
+            <td><code>"input[name='id']"</code></td>
+          </tr>
+          <tr>
+            <td><code>price</code></td>
+            <td>
+              Element giá bán. Dùng làm anchor point chèn swatch hoặc cập nhật
+              giá khi đổi variant.
+            </td>
+            <td>Inspect element hiển thị giá tiền</td>
+            <td><code>'product-price'</code></td>
+          </tr>
+          <tr>
+            <td><code>compareAtPrice</code></td>
+            <td>
+              Element giá gốc bị gạch. Chỉ xuất hiện khi sản phẩm đang sale.
+            </td>
+            <td>
+              Inspect giá gốc bị gạch (cần có sản phẩm đang sale để thấy element
+              này)
+            </td>
+            <td><code>'.price-item--regular'</code></td>
+          </tr>
+          <tr>
+            <td><code>submitButton</code></td>
+            <td>
+              Nút Add to Cart. App đọc <code>disabled</code> state để xác định
+              available / sold out.
+            </td>
+            <td>
+              Inspect nút ATC → lấy selector đủ cụ thể để không nhầm với nút
+              khác
+            </td>
+            <td><code>"button[type='submit'][name='add']"</code></td>
+          </tr>
+          <tr>
+            <td><code>linksHasHandle</code></td>
+            <td>
+              Mảng selector link <code>&lt;a&gt;</code> dẫn đến product page.
+              Dùng để extract handle từ href.<br /><br /><em
+                >💡 Hầu hết các theme đều có link <code>/products/</code> trên
+                product page — có thể giữ nguyên
+                <code>['a[href*="/products/"]']</code> mà không cần inspect
+                lại.</em
+              >
+            </td>
+            <td>
+              Tìm <code>&lt;a href="/products/..."&gt;</code> — thường là link
+              breadcrumb hoặc tiêu đề
+            </td>
+            <td><code>['a[href*="/products/"]']</code></td>
+          </tr>
+          <tr>
+            <td><code>title</code></td>
+            <td>Element chứa tên sản phẩm.</td>
+            <td>Inspect tên sản phẩm → lấy tag/class</td>
+            <td><code>'.product__title'</code></td>
+          </tr>
+          <tr>
+            <td><code>quantity</code></td>
+            <td>Container input số lượng. App ẩn/hiện hoặc reset khi cần.</td>
+            <td>Inspect input số lượng sản phẩm</td>
+            <td><code>'.product-form__quantity'</code></td>
+          </tr>
+          <tr>
+            <td><code>buttonContainer</code></td>
+            <td>
+              Wrapper chứa nút ATC (và các nút phụ). Dùng để chèn nội dung
+              trước/sau cụm nút.
+            </td>
+            <td>Inspect vùng bao quanh nút ATC</td>
+            <td><code>'.product-form__buttons'</code></td>
+          </tr>
+        </table>
+        <div class="box warn">
+          <strong
+            >⚠️ Field hay nhầm: <code>themeVariantPicker</code> vs
+            <code>optionSelector</code></strong
+          >
+          <code>themeVariantPicker</code> là element bị <em>ẩn đi</em> (toàn bộ
+          container). <code>optionSelector</code> là element bên trong đó mà app
+          sẽ <em>click vào</em> để trigger event của theme. Sai một trong hai là
+          swatch không hoạt động.
+        </div>
+
+        <!-- ── COLLECTION ── -->
+        <h3>Nhóm <code>collection</code> — Collection / Home Page</h3>
+        <table>
+          <tr>
+            <th style="width: 18%">Field</th>
+            <th>Mô tả</th>
+            <th>Cách xác định (F12)</th>
+            <th>Ví dụ</th>
+          </tr>
+          <tr>
+            <td><code>wrapper</code></td>
+            <td>
+              Selector bọc từng product card. App lặp qua tất cả để render
+              swatch.
+            </td>
+            <td>
+              Mở collection page → inspect một card → lấy element ngoài cùng.
+              Verify tất cả card đều dùng cùng selector
+            </td>
+            <td><code>'product-card-link'</code></td>
+          </tr>
+          <tr>
+            <td><code>linksHasHandle</code></td>
+            <td>
+              Mảng link dẫn đến product page trong card. Dùng để extract handle
+              → fetch product data.<br /><br /><em
+                >💡 Hầu hết các theme đều có link <code>/products/</code> trong
+                card — có thể giữ nguyên
+                <code>['a[href*="/products/"]']</code> mà không cần inspect
+                lại.</em
+              >
+            </td>
+            <td>
+              Trong card tìm <code>&lt;a href="/products/..."&gt;</code> (thường
+              là link ảnh hoặc tên)
+            </td>
+            <td><code>['a[href*="/products/"]']</code></td>
+          </tr>
+          <tr>
+            <td><code>image</code></td>
+            <td>
+              Selector ảnh sản phẩm trong card. App cập nhật
+              <code>src</code>/<code>srcset</code> khi đổi variant.
+            </td>
+            <td>
+              Inspect thẻ <code>&lt;img&gt;</code> chứa ảnh sản phẩm trong card
+            </td>
+            <td><code>'.product-media img'</code></td>
+          </tr>
+          <tr>
+            <td><code>price</code></td>
+            <td>Element giá trong card. Cập nhật khi đổi variant.</td>
+            <td>Inspect giá tiền trên card</td>
+            <td><code>'.price'</code></td>
+          </tr>
+          <tr>
+            <td><code>compareAtPrice</code></td>
+            <td>Giá gốc bị gạch trong card.</td>
+            <td>Inspect giá gốc trên card đang sale</td>
+            <td><code>'.price-item--regular'</code></td>
+          </tr>
+          <tr>
+            <td><code>themeVariantPicker</code></td>
+            <td>
+              Variant picker gốc trong card (nếu có). App ẩn đi để không trùng
+              với swatch của app.
+            </td>
+            <td>
+              Inspect xem theme có render swatch/picker riêng trong card không.
+              Để <code>''</code> nếu không có
+            </td>
+            <td><code>'product-swatches'</code>, <code>''</code></td>
+          </tr>
+          <tr>
+            <td><code>optionSelector</code></td>
+            <td>
+              Cặp option/value trong card (nếu theme render selector trong
+              card). Thường để <code>[]</code>.
+            </td>
+            <td>Tương tự product, nhưng scope trong card</td>
+            <td><code>[]</code></td>
+          </tr>
+          <tr>
+            <td><code>title</code></td>
+            <td>Element tên sản phẩm trong card.</td>
+            <td>Inspect tên sản phẩm trên card</td>
+            <td><code>'[class*="product_title"]'</code></td>
+          </tr>
+          <tr>
+            <td><code>modalOpener</code></td>
+            <td>
+              Nút mở Quick View trong card. Dùng kèm với config
+              <code>quickView</code>.
+            </td>
+            <td>Inspect nút "Quick view" / "Quick add" trong card</td>
+            <td><code>'modal-opener button'</code></td>
+          </tr>
+        </table>
+
+        <!-- ── QUICK VIEW ── -->
+        <h3>Nhóm <code>quickView</code> — Quick View Modal</h3>
+        <p>
+          Cấu hình các field tương tự nhóm <code>product</code> nhưng scope bên
+          trong modal Quick View. Ngoài ra có thêm một số field đặc thù:
+        </p>
+        <table>
+          <tr>
+            <th style="width: 18%">Field</th>
+            <th>Mô tả</th>
+            <th>Cách xác định (F12)</th>
+            <th>Ví dụ</th>
+          </tr>
+          <tr>
+            <td><code>observerTarget</code></td>
+            <td>
+              Element app dùng MutationObserver để biết khi Quick View modal đã
+              render xong DOM. Khi element này xuất hiện, app bắt đầu inject
+              swatch.
+            </td>
+            <td>
+              Mở Quick View → inspect nội dung modal → tìm element xuất hiện sau
+              cùng khi modal load xong
+            </td>
+            <td>
+              <code>'quick-add-modal .quick-add-modal__content-info'</code>
+            </td>
+          </tr>
+          <tr>
+            <td><code>modalOpener</code></td>
+            <td>Nút mở Quick View trên card. App gắn event vào đây.</td>
+            <td>Inspect nút "Quick view" trong card</td>
+            <td><code>'.quick-add__button'</code></td>
+          </tr>
+          <tr>
+            <td><code>modalOpenerWrapper</code></td>
+            <td>
+              Card wrapper chứa nút mở Quick View. App dùng để scope khi tìm
+              opener.
+            </td>
+            <td>Element bao card có chứa nút Quick View</td>
+            <td><code>'.product-card-wrapper'</code></td>
+          </tr>
+          <tr>
+            <td><code>wrapper</code></td>
+            <td>
+              Wrapper nội dung bên trong modal. Scope của mọi query trong Quick
+              View.
+            </td>
+            <td>
+              Inspect nội dung modal sau khi mở → tìm element cha bao toàn bộ
+            </td>
+            <td><code>'quick-add-modal__content'</code></td>
+          </tr>
+        </table>
+        <div class="box note">
+          <strong>📌 Lưu ý</strong>
+          Các field còn lại trong
+          <code>quickView</code> (<code>optionSelector</code>,
+          <code>variantId</code>, <code>price</code>…) cấu hình giống hệt nhóm
+          <code>product</code>
+          nhưng inspect trong scope của modal, không phải product page.
+        </div>
+
+        <!-- ── VARIANT IMG ── -->
+        <h3>Nhóm <code>variantImg</code> — Variant Images</h3>
+        <table>
+          <tr>
+            <th style="width: 18%">Field</th>
+            <th>Mô tả</th>
+            <th>Cách xác định (F12)</th>
+            <th>Ví dụ</th>
+          </tr>
+          <tr>
+            <td><code>variantId</code></td>
+            <td>
+              Input variant ID — scope riêng cho module Variant Images. Có thể
+              khác <code>product.variantId</code> nếu nằm trong form khác.
+            </td>
+            <td>
+              Tìm <code>&lt;input name="id"&gt;</code> — chú ý prefix nếu nằm
+              trong custom element
+            </td>
+            <td><code>"product-form-component input[name='id']"</code></td>
+          </tr>
+          <tr>
+            <td><code>selectedVariant</code></td>
+            <td>
+              Element chứa data variant đang chọn (thường
+              <code>&lt;script&gt;</code> tag JSON). App đọc để biết
+              <code>featured_image</code> của variant.
+            </td>
+            <td>
+              Inspect bên trong variant-picker → tìm
+              <code>&lt;script type="application/json"&gt;</code>
+            </td>
+            <td><code>'variant-picker script'</code></td>
+          </tr>
+          <tr>
+            <td><code>selectedOptions</code></td>
+            <td>
+              Mảng selector tìm các option đang được chọn. Dùng để sync gallery
+              với variant hiện tại.
+            </td>
+            <td>
+              Tìm <code>input:checked</code> hoặc
+              <code>option:checked</code> trong variant picker
+            </td>
+            <td><code>['input:checked', 'option:checked']</code></td>
+          </tr>
+          <tr>
+            <td><code>mediaGallerySelector</code></td>
+            <td>
+              Selector element gallery tổng. App dùng để scope khi tìm media.
+              <strong>Bắt buộc có nếu bật Swiper Gallery.</strong>
+            </td>
+            <td>Inspect wrapper bao toàn bộ gallery</td>
+            <td><code>'media-gallery'</code></td>
+          </tr>
+          <tr>
+            <td><code>sliderCounter</code></td>
+            <td>
+              Selector hoặc callback cập nhật bộ đếm tổng số slide (ví dụ:
+              "1/5"). Cập nhật sau khi filter ảnh theo variant.
+            </td>
+            <td>Inspect element hiển thị số lượng slide trong gallery</td>
+            <td><code>['.slider-counter--total']</code></td>
+          </tr>
+          <tr>
+            <td><code>mediaSelectors</code></td>
+            <td>
+              Mảng config cho từng vùng hiển thị media. Xem bảng chi tiết bên
+              dưới.
+            </td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+        </table>
+
+        <h4>Chi tiết <code>variantImg.mediaSelectors[]</code></h4>
+        <p>
+          Mỗi item trong mảng cấu hình một vùng media riêng biệt (main gallery,
+          thumbnail, zoom modal…):
+        </p>
+        <table>
+          <tr>
+            <th style="width: 18%">Field</th>
+            <th>Mô tả</th>
+            <th>Ví dụ</th>
+          </tr>
+          <tr>
+            <td><code>type</code></td>
+            <td>
+              Loại media: <code>'main'</code> (ảnh lớn chính),
+              <code>'thumbnail'</code> (dải thumbnail),
+              <code>'zoom-modal'</code> (modal zoom ảnh).
+            </td>
+            <td><code>'main'</code></td>
+          </tr>
+          <tr>
+            <td><code>container</code></td>
+            <td>
+              Mảng selector của wrapper chứa các media item. App thử lần lượt,
+              lấy cái tìm thấy đầu tiên.
+            </td>
+            <td>
+              <code>['media-gallery > slider-component:first-of-type ul']</code>
+            </td>
+          </tr>
+          <tr>
+            <td><code>item</code></td>
+            <td>Mảng selector của từng media item bên trong container.</td>
+            <td><code>['li']</code></td>
+          </tr>
+          <tr>
+            <td><code>nextButton</code> / <code>previousButton</code></td>
+            <td>Selector nút next/prev của slider (optional).</td>
+            <td><code>'.slideshow-control--next'</code></td>
+          </tr>
+          <tr>
+            <td><code>activeMediaItem</code></td>
+            <td>
+              Selector xác định item đang active (optional). App dùng để biết vị
+              trí hiện tại.
+            </td>
+            <td><code>'.slideshow-slide.is-active'</code></td>
+          </tr>
+          <tr>
+            <td><code>showMediaItem</code></td>
+            <td>
+              Callback custom để ẩn/hiện item thay vì dùng logic mặc định
+              (optional). Dùng khi theme ẩn ảnh bằng cách khác ngoài CSS
+              <code>display:none</code>.
+            </td>
+            <td>
+              <code
+                >(element, isShow) => element.style.display = isShow ? 'block' :
+                'none'</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td><code>handleRenderMedia</code></td>
+            <td>
+              Callback custom để render lại toàn bộ media list khi variant đổi
+              (optional). Dùng khi theme có logic đặc biệt mà app không tự xử lý
+              được.
+            </td>
+            <td>
+              Function nhận
+              <code>(slider, showedMediaList, product, optisViTool)</code>
+            </td>
+          </tr>
+        </table>
+        <div class="box note">
+          <strong>📌 Cách xác định mediaSelectors</strong>
+          Inspect gallery → xác định 3 thứ: (1) element bao toàn bộ gallery
+          (<code>container</code>) — chú ý main khác thumbnail khác zoom-modal;
+          (2) element của từng ảnh/slide (<code>item</code>); (3) nếu gallery có
+          slider: tìm thêm nút next/prev và class của slide đang active.
+        </div>
+
+        <h3>Ví dụ Theme Config thực tế (theme Horizon)</h3>
+        <pre><code>function swatchFixSupportThemeConfig(BSS_SE, shopifyTheme, themeConfig, ThemeMapName, ThemeMapId) {
+  return {
+    name: 'Horizon',
+    theme_store_id: 2481,
+    product: {
+      wrapper: '.product-information',
+      themeVariantPicker: 'variant-picker',
+      optionSelector: [{ option: 'fieldset,select', value: 'option,input[type="radio"]' }],
+      variantId: "input[name='id']",
+      price: 'product-price',
+      submitButton: "button[type='submit'][name='add']",
+    },
+    collection: {
+      wrapper: 'product-card-link',
+      linksHasHandle: ['a[href*="/products/"]'],
+      image: '.product-media img',
+      themeVariantPicker: '',
+      optionSelector: [],
+    },
+    variantImg: {
+      variantId: "input[name='id']",
+      selectedOptions: ['input:checked', 'option:checked'],
+      mediaGallerySelector: 'media-gallery',
+      mediaSelectors: [
+        { type: 'main', container: ['media-gallery > slider-component:first-of-type ul'], item: ['li'] },
+        { type: 'thumbnail', container: ['media-gallery > slider-component:nth-of-type(2) ul'], item: ['li'] },
+      ],
+    }
+  };
+}</code></pre>
+      </div>
+
+      <!-- ===== SECTION 5 ===== -->
+      <div class="section" id="s5">
+        <h2 class="section-title">
+          <span class="num">5</span>Luồng Chạy (Execution Flow)
+        </h2>
+
+        <h3>Khởi động app</h3>
+        <ul class="steps">
+          <li>
+            <span class="step-n">1</span>
+            <div class="step-body">
+              <strong>Script app được tải và thực thi</strong>
+              App đọc Theme Config từ source code (map theo
+              <code>theme_store_id</code> hoặc tên theme). Đồng thời đọc các hàm
+              <code>swatchFixSupport*</code> đã được lưu cho store đó (tương tự
+              cơ chế Vahu của OPTIS) và khai báo vào global scope.
+            </div>
+          </li>
+          <li>
+            <span class="step-n">2</span>
+            <div class="step-body">
+              <strong>Xác định trang và điều kiện chạy</strong>
+              App kiểm tra đây là trang nào (product/collection/home/quick
+              view…), shop có active plan không, app có bị disable không. Nếu có
+              <code>swatchFixSupportThemeConfig</code>, gọi hàm đó để ghi đè
+              Theme Config cho store này.
+            </div>
+          </li>
+          <li>
+            <span class="step-n">3</span>
+            <div class="step-body">
+              <strong>Render swatch và ẩn selector gốc</strong>
+              Với mỗi sản phẩm, app build HTML swatch rồi inject vào DOM. Đồng
+              thời ẩn <code>themeVariantPicker</code> (hoặc các element trong
+              <code>optionSelector</code>) đi bằng CSS.
+            </div>
+          </li>
+          <li>
+            <span class="step-n">5</span>
+            <div class="step-body">
+              <strong>Gắn event và theo dõi thay đổi</strong>
+              App gắn click event lên từng swatch. Theo dõi
+              <code>variantId</code> input bằng MutationObserver — khi giá trị
+              thay đổi (do theme cập nhật sau khi nhận click) → app chạy lại
+              logic Variant Images để hiển thị đúng ảnh.
+            </div>
+          </li>
+        </ul>
+
+        <h3>Luồng khi khách bấm swatch (Click-through)</h3>
+        <ul class="steps">
+          <li>
+            <span class="step-n">1</span>
+            <div class="step-body">
+              <strong>Khách click swatch của app</strong>
+              App nhận event, xác định variant value tương ứng (ví dụ: "Red",
+              size "M"…).
+            </div>
+          </li>
+          <li>
+            <span class="step-n">2</span>
+            <div class="step-body">
+              <strong>App tìm element tương ứng trong selector gốc</strong>
+              Dựa vào <code>optionSelector</code> trong Theme Config, app tìm
+              đúng <code>input[type="radio"]</code> hoặc <code>option</code> có
+              value khớp trong DOM đã ẩn.
+            </div>
+          </li>
+          <li>
+            <span class="step-n">3</span>
+            <div class="step-body">
+              <strong>Programmatically click vào element gốc</strong>
+              App gọi <code>.click()</code> (hoặc dispatch
+              <code>change</code> event) lên element đó → theme nhận event, xử
+              lý đổi variant như bình thường: cập nhật giá, kiểm tra stock,
+              bật/tắt ATC, cập nhật URL…
+            </div>
+          </li>
+          <li>
+            <span class="step-n">4</span>
+            <div class="step-body">
+              <strong>App theo dõi và cập nhật Variant Images</strong>
+              MutationObserver phát hiện <code>input[name='id']</code> thay đổi
+              giá trị → app chạy lại Variant Images logic, cập nhật gallery để
+              chỉ hiện ảnh của variant vừa chọn.
+            </div>
+          </li>
+        </ul>
+
+        <h3>Luồng Quick View</h3>
+        <ul class="steps">
+          <li>
+            <span class="step-n">1</span>
+            <div class="step-body">
+              <strong>App thiết lập MutationObserver theo dõi DOM</strong>
+              Dựa vào <code>quickView.observerTarget</code> trong Theme Config,
+              app lắng nghe sự kiện DOM thay đổi (childList). Khi phát hiện
+              Quick View modal được thêm vào DOM, app chờ thêm một khoảng delay
+              (cấu hình qua <code>swatchFixSupportGetQuickViewDelay</code>) để
+              theme hoàn tất render.
+            </div>
+          </li>
+          <li>
+            <span class="step-n">2</span>
+            <div class="step-body">
+              <strong>Inject swatch vào modal</strong>
+              Sau delay, app chạy lại toàn bộ luồng render swatch bên trong
+              scope của Quick View modal — ẩn selector gốc, render swatch mới,
+              gắn event.
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ===== SECTION 6 ===== -->
+      <div class="section" id="s6">
+        <h2 class="section-title">
+          <span class="num">6</span>Các Hàm Support – Cơ Chế và Tổng Quan
+        </h2>
+
+        <p>
+          Tương tự OPTIS, app Swatch có hệ thống hàm
+          <code>swatchFixSupport*</code> cho phép dev override hành vi mặc định
+          mà không cần sửa source code. Các hàm này được viết trên
+          <strong>Vahu</strong>, lưu vào DB, đồng bộ lên Shopify Metaobject và
+          được đọc vào global scope khi app khởi động.
+        </p>
+
+        <div class="box danger">
+          <strong>🚫 Không sửa trực tiếp vào source code app</strong>
+          Mọi customization đều thực hiện qua hàm
+          <code>swatchFixSupport*</code> trên Vahu — không sửa file JS của app,
+          không sửa theme.liquid của merchant.
+        </div>
+
+        <h3 id="s6-list">Danh sách hàm support thường dùng</h3>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">swatchFixSupportThemeConfig</span>
+            <span class="fn-tag ft-theme">Theme Config</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Theme chưa có config trong source code,
+              hoặc config mặc định không khớp với cấu trúc HTML của store này.
+            </p>
+            <p>
+              Return object config hoàn chỉnh. App sẽ dùng object này thay cho
+              config mặc định.
+            </p>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">swatchFixSupportCustomVariantPicker</span>
+            <span class="fn-tag ft-ui">UI</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Cần inject CSS tùy chỉnh hoặc chỉnh sửa
+              DOM sau khi swatch được render. Được gọi sau bước render swatch.
+            </p>
+            <p>
+              Thường dùng để thêm <code>&lt;style&gt;</code> vào
+              <code>&lt;head&gt;</code> với các override CSS.
+            </p>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">swatchFixSupportCustomAfterRender</span>
+            <span class="fn-tag ft-ui">UI</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Cần can thiệp vào DOM sau khi swatch
+              render xong — ẩn selected value, ẩn option name, ẩn tooltip theo
+              từng option cụ thể, di chuyển size guide, chỉnh layout.
+            </p>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">swatchFixSupportChangePosition</span>
+            <span class="fn-tag ft-ui">UI</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Muốn thay đổi vị trí inject swatch vào
+              DOM (mặc định app tự chọn vị trí theo Theme Config). Return
+              <code>true</code> khi đã inject thành công để app không inject lại
+              ở vị trí mặc định.
+            </p>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">swatchFixSupportAfterChangeVariant</span>
+            <span class="fn-tag ft-core">Core</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Cần thực hiện action sau khi khách đổi
+              variant — ví dụ: cập nhật background image của card trên
+              collection page, trigger scroll event, redirect sang product page.
+            </p>
+            <p>
+              Nhận tham số: <code>option_name</code> và
+              <code>newValue</code> của variant vừa được chọn.
+            </p>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name"
+              >swatchFixSupportAddEventChangeVariantImages</span
+            >
+            <span class="fn-tag ft-core">Core</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Theme không cập nhật
+              <code>input[name='id']</code> khi đổi variant — thay vào đó chỉ
+              thay đổi URL. App mặc định theo dõi input này; dùng hàm này để
+              override, theo dõi URL change thay thế rồi gọi lại
+              <code>OptisVariantImages.runAutomatedShowMedia()</code>.
+            </p>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">swatchFixSupportUpdateUIFromVariantData</span>
+            <span class="fn-tag ft-ui">UI</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Cần custom cách app cập nhật giá, ảnh,
+              link trên collection page sau khi đổi variant. Nhận
+              <code>selectedVariant</code> (object chứa giá, ảnh, URL…) và
+              <code>domUpdate</code> (các element DOM cần update).
+            </p>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name"
+              >swatchFixSupportUpdateUIFromVariantDataAfter</span
+            >
+            <span class="fn-tag ft-ui">UI</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Cần thực hiện thêm UI update sau khi
+              app đã update giá/ảnh xong — ví dụ: cập nhật discount badge, cập
+              nhật background-image CSS, redirect sang product page.
+            </p>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">swatchFixSupportGetQuickViewDelay</span>
+            <span class="fn-tag ft-misc">Quick View</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Theme Quick View cần thời gian call API
+              để lấy dữ liệu trước khi render HTML — app cần đợi theme render
+              xong mới inject swatch. Return số milliseconds cần delay (ví dụ:
+              <code>return 1000</code>).
+            </p>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">swatchFixSupportQuickViewMutation</span>
+            <span class="fn-tag ft-misc">Quick View</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Cần thêm config cho MutationObserver
+              theo dõi Quick View — mặc định chỉ theo dõi
+              <code>childList</code>, dùng hàm này để thêm
+              <code>attributes: true</code> hoặc các config khác.
+            </p>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">swatchFixSupportSetupConfig</span>
+            <span class="fn-tag ft-misc">Config</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Cần override các config nội bộ của app
+              — ví dụ: set <code>BSS_SE.config.locales.primary</code> khi store
+              dùng ngôn ngữ không chuẩn khiến app không nhận diện được ngôn ngữ
+              mặc định.
+            </p>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">swatchFixSupportLocaleShopUrl</span>
+            <span class="fn-tag ft-misc">Config</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Store dùng locale prefix trong URL (ví
+              dụ: <code>/en-us/</code>, <code>/fr/</code>) khiến app gọi API sai
+              URL. Return URL đã được normalize. Thường dùng khi đổi variant ở
+              collection page nhận lỗi "not found".
+            </p>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">swatchFixSupportUseVariantImagesSwiper</span>
+            <span class="fn-tag ft-core">Variant Images</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Muốn bật Swiper Gallery rendering thay
+              cho legacy rendering mặc định.
+              <strong>Bắt buộc phải return <code>true</code></strong
+              >. Cần có <code>mediaGallerySelector</code> trong Theme Config.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 7 ===== -->
+      <div class="section" id="s7">
+        <h2 class="section-title">
+          <span class="num">7</span>Các Bug Hay Gặp – Nguyên Nhân và Cách Fix
+        </h2>
+
+        <!-- BUG 1 -->
+        <div
+          style="
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            margin: 18px 0;
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              background: #f8fafc;
+              padding: 12px 20px;
+              display: flex;
+              align-items: flex-start;
+              gap: 12px;
+              border-bottom: 1px solid #e2e8f0;
+            "
+          >
+            <span style="font-size: 18px">🐛</span>
+            <div style="font-weight: 700; font-size: 15px; color: #0f172a">
+              Bug 1 – Swatch hiển thị nhưng bấm vào không đổi variant
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr">
+            <div style="padding: 14px 18px; border-right: 1px solid #e2e8f0">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  color: #94a3b8;
+                  margin-bottom: 6px;
+                "
+              >
+                Triệu chứng
+              </div>
+              Swatch render đúng, click được nhưng giá không cập nhật, ảnh không
+              đổi, URL không thay đổi.
+            </div>
+            <div style="padding: 14px 18px">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  color: #94a3b8;
+                  margin-bottom: 6px;
+                "
+              >
+                Nguyên nhân
+              </div>
+              <code>optionSelector</code> trong Theme Config sai — app tìm không
+              ra element cần click, hoặc click vào sai element không có event
+              listener của theme.
+            </div>
+          </div>
+          <div style="padding: 16px 20px">
+            <p>
+              <strong>Cách fix:</strong> F12 → inspect variant selector gốc của
+              theme → xác định đúng selector <code>fieldset</code>/<code
+                >select</code
+              >
+              và <code>input[type="radio"]</code>/<code>option</code> → viết
+              <code>swatchFixSupportThemeConfig</code> với
+              <code>optionSelector</code> đúng.
+            </p>
+          </div>
+        </div>
+
+        <!-- BUG 2 -->
+        <div
+          style="
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            margin: 18px 0;
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              background: #f8fafc;
+              padding: 12px 20px;
+              display: flex;
+              align-items: flex-start;
+              gap: 12px;
+              border-bottom: 1px solid #e2e8f0;
+            "
+          >
+            <span style="font-size: 18px">🐛</span>
+            <div style="font-weight: 700; font-size: 15px; color: #0f172a">
+              Bug 2 – Swatch không hiển thị trên collection page
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr">
+            <div style="padding: 14px 18px; border-right: 1px solid #e2e8f0">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  color: #94a3b8;
+                  margin-bottom: 6px;
+                "
+              >
+                Triệu chứng
+              </div>
+              Product page hiển thị swatch bình thường nhưng collection page
+              không có gì.
+            </div>
+            <div style="padding: 14px 18px">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  color: #94a3b8;
+                  margin-bottom: 6px;
+                "
+              >
+                Nguyên nhân
+              </div>
+              <code>collection.wrapper</code> hoặc
+              <code>collection.linksHasHandle</code> sai — app không tìm được
+              product card hay handle để fetch data và inject swatch.
+            </div>
+          </div>
+          <div style="padding: 16px 20px">
+            <p>
+              <strong>Cách fix:</strong> F12 trên collection page → inspect
+              product card → tìm đúng selector bọc card và selector link có
+              <code>/products/</code> → cập nhật
+              <code>collection.wrapper</code> và
+              <code>collection.linksHasHandle</code> trong
+              <code>swatchFixSupportThemeConfig</code>.
+            </p>
+          </div>
+        </div>
+
+        <!-- BUG 3 -->
+        <div
+          style="
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            margin: 18px 0;
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              background: #f8fafc;
+              padding: 12px 20px;
+              display: flex;
+              align-items: flex-start;
+              gap: 12px;
+              border-bottom: 1px solid #e2e8f0;
+            "
+          >
+            <span style="font-size: 18px">🐛</span>
+            <div style="font-weight: 700; font-size: 15px; color: #0f172a">
+              Bug 3 – Đổi variant không đổi ảnh
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr">
+            <div style="padding: 14px 18px; border-right: 1px solid #e2e8f0">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  color: #94a3b8;
+                  margin-bottom: 6px;
+                "
+              >
+                Triệu chứng
+              </div>
+              Click swatch đổi variant thành công (giá cập nhật, URL đổi) nhưng
+              gallery ảnh không thay đổi — vẫn hiện ảnh cũ.
+            </div>
+            <div style="padding: 14px 18px">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  color: #94a3b8;
+                  margin-bottom: 6px;
+                "
+              >
+                Nguyên nhân
+              </div>
+              Config <code>variantImg.mediaSelectors</code> sai — app không tìm
+              được đúng container gallery và item ảnh cần cập nhật. Hoặc theme
+              dùng URL thay vì <code>input[name='id']</code> để trigger variant
+              change.
+            </div>
+          </div>
+          <div style="padding: 16px 20px">
+            <p>
+              <strong>Cách fix 1:</strong> F12 → inspect gallery → tìm đúng
+              selector container và item → cập nhật
+              <code>variantImg.mediaSelectors</code> trong Theme Config.
+            </p>
+            <p>
+              <strong>Cách fix 2:</strong> Nếu theme dùng URL, dùng
+              <code>swatchFixSupportAddEventChangeVariantImages</code> để theo
+              dõi URL change thay vì <code>input[name='id']</code>.
+            </p>
+          </div>
+        </div>
+
+        <!-- BUG 4 -->
+        <div
+          style="
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            margin: 18px 0;
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              background: #f8fafc;
+              padding: 12px 20px;
+              display: flex;
+              align-items: flex-start;
+              gap: 12px;
+              border-bottom: 1px solid #e2e8f0;
+            "
+          >
+            <span style="font-size: 18px">🐛</span>
+            <div style="font-weight: 700; font-size: 15px; color: #0f172a">
+              Bug 4 – Swatch không hiển thị trong Quick View
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr">
+            <div style="padding: 14px 18px; border-right: 1px solid #e2e8f0">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  color: #94a3b8;
+                  margin-bottom: 6px;
+                "
+              >
+                Triệu chứng
+              </div>
+              Swatch hiển thị đúng trên product page và collection page, nhưng
+              khi mở Quick View modal thì không có swatch.
+            </div>
+            <div style="padding: 14px 18px">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  color: #94a3b8;
+                  margin-bottom: 6px;
+                "
+              >
+                Nguyên nhân
+              </div>
+              <code>quickView.observerTarget</code> chưa được cấu hình, hoặc
+              modal render sau khi app đã chạy xong và app không phát hiện được.
+              Hoặc modal cần thêm thời gian để fetch data trước khi render HTML.
+            </div>
+          </div>
+          <div style="padding: 16px 20px">
+            <p>
+              <strong>Cách fix 1:</strong> Thêm cấu hình
+              <code>quickView</code> vào Theme Config với đúng
+              <code>observerTarget</code>, <code>wrapper</code>,
+              <code>optionSelector</code>… của modal.
+            </p>
+            <p>
+              <strong>Cách fix 2:</strong> Nếu modal cần thời gian call API,
+              dùng <code>swatchFixSupportGetQuickViewDelay</code> để trả về
+              delay phù hợp (ví dụ: 1000ms).
+            </p>
+          </div>
+        </div>
+
+        <!-- BUG 5 -->
+        <div
+          style="
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            margin: 18px 0;
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              background: #f8fafc;
+              padding: 12px 20px;
+              display: flex;
+              align-items: flex-start;
+              gap: 12px;
+              border-bottom: 1px solid #e2e8f0;
+            "
+          >
+            <span style="font-size: 18px">🐛</span>
+            <div style="font-weight: 700; font-size: 15px; color: #0f172a">
+              Bug 5 – Swatch không hiển thị hoặc đổi variant bị lỗi "not found"
+              trên store đa ngôn ngữ
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr">
+            <div style="padding: 14px 18px; border-right: 1px solid #e2e8f0">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  color: #94a3b8;
+                  margin-bottom: 6px;
+                "
+              >
+                Triệu chứng
+              </div>
+              Store dùng Shopify Markets với nhiều ngôn ngữ. Swatch không hiển
+              thị hoặc khi đổi variant ở collection page nhận lỗi 404 / not
+              found.
+            </div>
+            <div style="padding: 14px 18px">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  color: #94a3b8;
+                  margin-bottom: 6px;
+                "
+              >
+                Nguyên nhân
+              </div>
+              App không nhận diện được ngôn ngữ mặc định của store, hoặc URL của
+              store có locale prefix khiến app gọi API sai endpoint.
+            </div>
+          </div>
+          <div style="padding: 16px 20px">
+            <p>
+              <strong>Cách debug:</strong> F12 → tab <strong>Network</strong> →
+              bấm thay đổi variant trên store → tìm các request API xuất hiện.
+              App sẽ gọi đến URL trang sản phẩm của chính sản phẩm đó để lấy
+              thông tin variant. Nếu request đó trả về <strong>404</strong> →
+              đây là dấu hiệu của bug này.
+            </p>
+            <p>
+              <strong>Cách fix 1:</strong> Dùng
+              <code>swatchFixSupportSetupConfig</code> để set đúng
+              <code>BSS_SE.config.locales.primary</code> cho ngôn ngữ mặc định
+              của store.
+            </p>
+            <p>
+              <strong>Cách fix 2:</strong> Dùng
+              <code>swatchFixSupportLocaleShopUrl</code> để normalize URL khi
+              app gọi API — loại bỏ locale prefix không cần thiết.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        BSS Commerce · OP Color Swatch Variant Images · Training Guide ·
+        Internal Use Only
+      </div>
+    </div>
+  </body>
+</html>

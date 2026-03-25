@@ -1,0 +1,2183 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Training – BSS Product Options (OPTIS)</title>
+    <link rel="stylesheet" href="training.css" />
+    <style>
+      /* ── Option-specific styles ── */
+      .pre {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .case-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        margin: 18px 0;
+        overflow: hidden;
+      }
+      .case-header {
+        background: #f8fafc;
+        padding: 12px 20px;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .case-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .case-title {
+        font-weight: 700;
+        font-size: 15px;
+        color: #0f172a;
+      }
+      .case-body {
+        padding: 16px 20px;
+      }
+      .case-body p {
+        margin-bottom: 8px;
+      }
+      .case-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+      }
+      .case-row > div {
+        padding: 14px 18px;
+      }
+      .case-row > div:first-child {
+        border-right: 1px solid #e2e8f0;
+      }
+      .case-row-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #94a3b8;
+        margin-bottom: 6px;
+      }
+      /* ── Function tag colors (option-specific) ── */
+      .ft-setup {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+      .ft-product {
+        background: #dcfce7;
+        color: #15803d;
+      }
+      .ft-cart {
+        background: #fef3c7;
+        color: #b45309;
+      }
+      .ft-ui {
+        background: #f3e8ff;
+        color: #7e22ce;
+      }
+      .ft-misc {
+        background: #f1f5f9;
+        color: #64748b;
+      }
+      .vahu-flow {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 20px 24px;
+        margin: 16px 0;
+      }
+      .vahu-steps {
+        display: flex;
+        gap: 0;
+        align-items: stretch;
+        flex-wrap: wrap;
+      }
+      .vahu-step {
+        flex: 1;
+        min-width: 160px;
+        text-align: center;
+        padding: 16px 12px;
+        position: relative;
+      }
+      .vahu-step::after {
+        content: "→";
+        position: absolute;
+        right: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+        font-size: 18px;
+        font-weight: 300;
+      }
+      .vahu-step:last-child::after {
+        display: none;
+      }
+      .vahu-icon {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+      .vahu-step-title {
+        font-weight: 700;
+        font-size: 13px;
+        color: #0f172a;
+        margin-bottom: 4px;
+      }
+      .vahu-step-desc {
+        font-size: 12px;
+        color: #64748b;
+        line-height: 1.5;
+      }
+      .install-mode {
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        margin: 16px 0;
+        overflow: hidden;
+      }
+      .install-mode-header {
+        padding: 12px 20px;
+        font-weight: 700;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .auto-header {
+        background: #eff6ff;
+        color: #1d4ed8;
+        border-bottom: 1px solid #dbeafe;
+      }
+      .manual-header {
+        background: #fdf4ff;
+        color: #7e22ce;
+        border-bottom: 1px solid #f3e8ff;
+      }
+      .install-mode-body {
+        padding: 16px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-mark">B</div>
+        BSS Commerce
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Trang chủ</a>
+        <a href="option.html" class="active">Training OPTIS</a>
+        <a href="swatch.html">Training Swatch</a>
+      </div>
+    </nav>
+    <div class="cover">
+      <div class="cover-badge">Internal Training Document</div>
+      <h1>BSS <span>Product Options</span><br />Developer Training Guide</h1>
+      <p class="subtitle">
+        Tài liệu onboarding cho developer mới – App OPTIS trên Shopify
+      </p>
+      <div class="cover-meta">
+        <div class="cover-meta-item"><strong>Team</strong>BSS Commerce</div>
+        <div class="cover-meta-item"><strong>Author</strong>NghiaLC</div>
+        <div class="cover-meta-item"><strong>Cập nhật</strong>2026</div>
+        <div class="cover-meta-item">
+          <strong>Đối tượng</strong>Developer mới
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="toc">
+        <h2>📋 Mục Lục</h2>
+        <ol>
+          <li><a href="#s1">Tổng Quan – App OPTIS là gì?</a></li>
+          <li><a href="#s2">Các Tính Năng Của App</a></li>
+          <li><a href="#s3">Cơ Sở Dữ Liệu (Database)</a></li>
+          <li><a href="#s4">Logic Đặt Hàng</a></li>
+          <li><a href="#s5">Luồng Chạy (Execution Flow)</a></li>
+          <li>
+            <a href="#s6">Các Hàm Support – Cơ Chế và Tổng Quan</a>
+            <ol class="sub">
+              <li><a href="#s6-vahu">Vahu – Tool quản lý hàm support</a></li>
+              <li><a href="#s6-list">Danh sách hàm support</a></li>
+            </ol>
+          </li>
+          <li><a href="#s7">ATC Proxy – Khi Nào Dùng và Cách Dùng</a></li>
+          <li>
+            <a href="#s8"
+              >Các Case Hay Gặp – Triệu Chứng, Nguyên Nhân, Cách Fix</a
+            >
+          </li>
+          <li><a href="#s9">Các Bug Hay Gặp – Nguyên Nhân và Cách Fix</a></li>
+          <li><a href="#s10">Hướng Dẫn Installation</a></li>
+        </ol>
+      </div>
+
+      <!-- ===== SECTION 1 ===== -->
+      <div class="section" id="s1">
+        <h2 class="section-title">
+          <span class="num">1</span>Tổng Quan – App OPTIS là gì?
+        </h2>
+
+        <h3>Vấn đề: Shopify mặc định không đủ linh hoạt</h3>
+        <p>
+          Hãy tưởng tượng bạn đang mua một chiếc áo trên Shopee. Trang sản phẩm
+          cho phép bạn chọn <strong>màu sắc, size, chất liệu</strong> — đó là
+          những lựa chọn thông thường mà nền tảng hỗ trợ sẵn.
+        </p>
+        <p>
+          Nhưng giả sử bạn muốn
+          <strong>in tên hoặc ảnh của mình lên áo</strong>. Shopee không có ô
+          nào để nhập thông tin đó. Kết quả: khách phải nhắn tin riêng cho chủ
+          store để gửi thông tin — rất bất tiện, dễ sót đơn, và trải nghiệm
+          không chuyên nghiệp.
+        </p>
+        <p>
+          <strong>Shopify mặc định cũng vậy.</strong> Nền tảng chỉ hỗ trợ tối đa
+          3 loại option (ví dụ: Size, Color, Material) và mỗi option chỉ cho
+          phép chọn từ danh sách giá trị có sẵn. Không có ô nhập text tự do,
+          không có upload file, không có date picker, không có logic ẩn/hiện
+          theo lựa chọn của khách.
+        </p>
+
+        <div class="box warn">
+          <strong>⚠️ Giới hạn của Shopify mặc định</strong>
+          Shopify chỉ hỗ trợ tối đa <strong>3 option</strong> mỗi sản phẩm, và
+          mỗi option chỉ là danh sách giá trị cố định (dropdown/button). Không
+          hỗ trợ text input, file upload, date picker, hay bất kỳ loại input tự
+          do nào. Shopify đã nâng giới hạn variant từ 100 lên 2,048 vào năm 2024
+          và có thể sẽ tiếp tục nâng giới hạn số option trong tương lai — nhưng
+          tính đến thời điểm hiện tại con số vẫn là <strong>3 option</strong>.
+        </div>
+
+        <h3>Giải pháp: OPTIS</h3>
+        <p>
+          <strong>BSS Product Options (OPTIS)</strong> là Shopify app giải quyết
+          đúng vấn đề đó. App cho phép merchant thêm bất kỳ loại option nào vào
+          sản phẩm — vượt hoàn toàn ra ngoài giới hạn mặc định của Shopify.
+        </p>
+
+        <table>
+          <tr>
+            <th>Không có OPTIS</th>
+            <th>Có OPTIS</th>
+          </tr>
+          <tr>
+            <td>Tối đa 3 option, chỉ chọn từ danh sách có sẵn</td>
+            <td>Không giới hạn số option, hỗ trợ 18+ loại input</td>
+          </tr>
+          <tr>
+            <td>Không có ô nhập text tự do (tên, lời nhắn…)</td>
+            <td>Text field, Textarea cho phép khách nhập tự do</td>
+          </tr>
+          <tr>
+            <td>Không thể upload file hay ảnh</td>
+            <td>File Upload — khách upload ảnh/file đính kèm trực tiếp</td>
+          </tr>
+          <tr>
+            <td>Không thể chọn ngày giờ</td>
+            <td>Date / Time Picker tích hợp sẵn</td>
+          </tr>
+          <tr>
+            <td>Tất cả option luôn hiển thị cùng lúc</td>
+            <td>Conditional Logic: ẩn/hiện option theo lựa chọn của khách</td>
+          </tr>
+          <tr>
+            <td>Không thể cộng thêm phụ phí theo option</td>
+            <td>
+              Price Add-on: cộng thêm giá khi khách chọn option có phụ phí
+            </td>
+          </tr>
+          <tr>
+            <td>Không xem/sửa option trong giỏ hàng</td>
+            <td>In-cart Editing: sửa option ngay trên cart page</td>
+          </tr>
+        </table>
+
+        <div class="box tip">
+          <strong>✅ Ví dụ thực tế</strong>
+          Store bán áo custom: khách chọn size và màu (Shopify mặc định xử lý
+          được), sau đó nhập tên cần in (Text field của OPTIS), upload ảnh muốn
+          in (File Upload của OPTIS), và chọn ngày giao hàng (Date Picker của
+          OPTIS) — tất cả trong một trang sản phẩm duy nhất, không cần nhắn tin
+          riêng với chủ store.
+        </div>
+
+        <h3>App hoạt động như thế nào?</h3>
+        <p>
+          Khi merchant cài app, Shopify tự động thêm một thẻ
+          <code>&lt;script&gt;</code> vào theme. Khi trình duyệt render đến thẻ
+          đó, hai file JavaScript của app được tải và thực thi:
+        </p>
+        <ul>
+          <li>
+            <code>bss-po-js.js</code> – file chính chứa toàn bộ logic của app
+          </li>
+          <li>
+            <code>bss-po-live-preview.js</code> – hỗ trợ tính năng live preview
+            trong admin
+          </li>
+        </ul>
+        <p>
+          App chạy trên hầu hết các trang của store (product, cart, home,
+          collection…), ngoại trừ trang <strong>checkout</strong> và
+          <strong>trang profile khách hàng</strong>.
+        </p>
+
+        <h3>Các loại option được hỗ trợ</h3>
+        <table>
+          <tr>
+            <th>Loại</th>
+            <th>Mô tả</th>
+          </tr>
+          <tr>
+            <td>Radio Button</td>
+            <td>Chọn một trong nhiều giá trị</td>
+          </tr>
+          <tr>
+            <td>Checkbox</td>
+            <td>Chọn nhiều giá trị cùng lúc</td>
+          </tr>
+          <tr>
+            <td>Dropdown</td>
+            <td>Menu thả xuống</td>
+          </tr>
+          <tr>
+            <td>Color / Image Swatch</td>
+            <td>Chọn bằng ô màu hoặc ảnh thumbnail</td>
+          </tr>
+          <tr>
+            <td>Button</td>
+            <td>Nút bấm dạng lưới</td>
+          </tr>
+          <tr>
+            <td>Text / Textarea Input</td>
+            <td>Ô nhập văn bản tự do</td>
+          </tr>
+          <tr>
+            <td>Date / Time Picker</td>
+            <td>Chọn ngày giờ</td>
+          </tr>
+          <tr>
+            <td>File Upload</td>
+            <td>Upload file đính kèm</td>
+          </tr>
+          <tr>
+            <td>Popup / Modal</td>
+            <td>Hiển thị nội dung mô tả trong popup</td>
+          </tr>
+        </table>
+
+        <div class="box note">
+          <strong>📌 Ghi nhớ cho dev mới</strong>
+          Vì mỗi Shopify theme có cấu trúc HTML khác nhau, phần lớn công việc
+          support là viết <strong>adapter code</strong> để app tương thích với
+          từng theme cụ thể — thông qua cơ chế hàm
+          <code>bssFixSupport*</code> và tool <strong>Vahu</strong> (xem Phần
+          5).
+        </div>
+      </div>
+      <!-- ===== END SECTION 1 ===== -->
+
+      <!-- ===== SECTION 2 ===== -->
+      <div class="section" id="s2">
+        <h2 class="section-title">
+          <span class="num">2</span>Các Tính Năng Của App
+        </h2>
+        <p>
+          Phần này mô tả các tính năng chính mà merchant hay sử dụng trong OPTIS
+          — mỗi tính năng làm gì và tại sao merchant cần nó.
+        </p>
+
+        <!-- Price Add-on -->
+        <h3>Price Add-on</h3>
+        <p>
+          Cho phép gắn <strong>phụ phí cố định (fixed)</strong> vào từng value
+          của option. Khi khách chọn một value có add-on, giá hiển thị trên
+          product page sẽ được cộng thêm tương ứng theo thời gian thực.
+        </p>
+        <p>
+          Ví dụ: option "Khắc tên" → cộng thêm $5 vào giá sản phẩm. Phụ phí cũng
+          được gửi lên Shopify khi ATC và hiển thị trong order.
+        </p>
+
+        <!-- Conditional Logic -->
+        <h3>Conditional Logic (Show / Hide Option)</h3>
+        <p>
+          Cho phép <strong>hiển thị hoặc ẩn một option</strong> dựa trên lựa
+          chọn của khách ở option khác. Mục đích là tạo luồng mua hàng gọn gàng
+          — chỉ hiện những option thực sự liên quan, tránh làm khách bị rối.
+        </p>
+        <p>
+          Ví dụ: chỉ khi khách chọn "Có, tôi muốn thêm hộp quà" thì option "Màu
+          hộp quà" và "Chất liệu" mới xuất hiện.
+        </p>
+        <p>
+          Ngoài ra app còn hỗ trợ
+          <strong>Option Set theo Variant (Variant-specific Option Set)</strong
+          >: merchant có thể assign một option set cụ thể cho từng Shopify
+          variant. Khi khách đổi variant (size, màu sắc…), toàn bộ option set
+          tương ứng sẽ tự động ẩn/hiện theo — không phụ thuộc vào input của
+          khách, mà phụ thuộc hoàn toàn vào variant đang được chọn.
+        </p>
+
+        <!-- Featured Products -->
+        <h3>Featured Products</h3>
+        <p>
+          Cho phép hiển thị option set ngay trên
+          <strong>Home Page</strong> — khách có thể chọn option và add to cart
+          trực tiếp từ trang listing mà không cần vào product page.
+        </p>
+
+        <!-- Cart Page / In-cart Editing -->
+        <h3>Cart Page / In-cart Editing</h3>
+        <p>
+          Hiển thị các option đã chọn trong giỏ hàng và cho phép khách
+          <strong>chỉnh sửa lại option ngay trên cart page</strong> — không cần
+          quay về product page. Khi click Edit, một modal mở ra với option set
+          của sản phẩm đó, giá trị cũ được điền sẵn. Sau khi xác nhận, app tự
+          cập nhật lại order properties mà không cần xóa rồi thêm lại sản phẩm.
+        </p>
+
+        <!-- Upsell / Linked Product -->
+        <h3>Upsell Product (Linked Product)</h3>
+        <p>
+          Thay vì gắn một con số phụ phí vào option value, merchant có thể
+          <strong>gắn thẳng một sản phẩm Shopify thực</strong> vào value đó. Khi
+          đó giá của value lấy từ giá sản phẩm được gán, tồn kho cũng lấy từ tồn
+          kho thực của sản phẩm đó.
+        </p>
+        <p>
+          Khi khách chọn value này và ATC,
+          <strong
+            >sản phẩm được linked cũng được thêm vào giỏ hàng và bị trừ tồn
+            kho</strong
+          >
+          tương ứng. Đây là lý do tính năng được gọi là Upsell — merchant có thể
+          bán thêm một sản phẩm đi kèm (phụ kiện, dịch vụ, bundle…) ngay trong
+          luồng chọn option mà không cần khách phải vào trang sản phẩm phụ đó.
+        </p>
+        <p>
+          Ví dụ: bán áo → option "Thêm móc treo" → gán vào sản phẩm "Móc treo
+          cao cấp" trong kho. Khi khách chọn và ATC, cả áo lẫn móc treo đều vào
+          giỏ hàng và tồn kho móc treo bị trừ tự động.
+        </p>
+
+        <!-- Order Confirmation / Packing Slip -->
+        <h3>Order Confirmation Email &amp; Packing Slips</h3>
+        <p>
+          Cho phép các option value mà khách đã chọn
+          <strong
+            >hiển thị trong email xác nhận đơn hàng và phiếu đóng gói</strong
+          >. Mặc định Shopify không hiển thị custom properties trong các
+          template này — tính năng này giải quyết điều đó.
+        </p>
+        <p>
+          Đặc biệt hữu ích với các store print-on-demand hoặc custom order, nơi
+          thông tin như tên khắc, ngày chọn, file upload… cần xuất hiện rõ ràng
+          để người dùng có thể thấy họ đã đặt những gì.
+        </p>
+      </div>
+      <!-- ===== END SECTION 2 ===== -->
+
+      <!-- ===== SECTION 3 ===== -->
+      <div class="section" id="s3">
+        <h2 class="section-title">
+          <span class="num">3</span>Cơ Sở Dữ Liệu (Database)
+        </h2>
+
+        <h3>Các bảng chính và quan hệ</h3>
+        <table>
+          <tr>
+            <th>Bảng</th>
+            <th>Nội dung chính</th>
+            <th>Quan hệ</th>
+          </tr>
+          <tr>
+            <td><code>shops</code></td>
+            <td>Domain, token, plan, currency, timezone, shop info</td>
+            <td>Bảng gốc – các bảng khác đều FK đến đây</td>
+          </tr>
+          <tr>
+            <td><code>optionSets</code></td>
+            <td>
+              Bộ options: tên, priority, điều kiện áp dụng (product, collection,
+              tag, customer)
+            </td>
+            <td>Một <code>shop</code> có nhiều <code>optionSet</code></td>
+          </tr>
+          <tr>
+            <td><code>options</code></td>
+            <td>Chi tiết từng option: loại, label, giá trị, cấu hình UI</td>
+            <td>Một <code>optionSet</code> chứa nhiều <code>option</code></td>
+          </tr>
+          <tr>
+            <td><code>price_add_ons</code></td>
+            <td>Phụ phí: giá, loại giá (fixed/percent)</td>
+            <td>Mỗi <code>option</code> có một <code>price_add_on</code></td>
+          </tr>
+          <tr>
+            <td><code>conditionalOptions</code></td>
+            <td>Điều kiện conditional: khi A được chọn thì show/hide B</td>
+            <td>
+              Nhiều <code>conditionalOption</code> thuộc một <code>option</code>
+            </td>
+          </tr>
+          <tr>
+            <td><code>settings</code></td>
+            <td>
+              Cấu hình hiển thị: show quantity, show price, show cart total…
+            </td>
+            <td>Một <code>shop</code> có một <code>settings</code></td>
+          </tr>
+          <tr>
+            <td><code>plans</code> / <code>planLogs</code></td>
+            <td>Gói dịch vụ và lịch sử đăng ký</td>
+            <td>Một <code>plan</code> có nhiều <code>planLog</code></td>
+          </tr>
+          <tr>
+            <td><code>cms_settings</code></td>
+            <td>Settings giao diện CMS theo domain</td>
+            <td>Một-một với <code>shop</code></td>
+          </tr>
+          <tr>
+            <td><code>revenue_statistic</code></td>
+            <td>Thống kê doanh thu, số đơn, giá trị trung bình</td>
+            <td>Một-một với <code>shop</code></td>
+          </tr>
+        </table>
+
+        <h3>Lấy dữ liệu shop từ frontend</h3>
+        <p>
+          App nhúng data của shop vào DOM dưới dạng JSON để JS có thể đọc mà
+          không cần gọi API thêm:
+        </p>
+        <pre><code>// Luôn có ở mọi trang app chạy
+let shopData = JSON.parse(document.querySelector('#bss-po-store-data').innerHTML);
+
+// Nếu đang ở product page, shopData đã chứa thông tin product luôn
+let productInfo = shopData.product ? shopData.product : shopData;</code></pre>
+      </div>
+
+      <!-- ===== SECTION 4 ===== -->
+      <div class="section" id="s4">
+        <h2 class="section-title"><span class="num">4</span>Logic Đặt Hàng</h2>
+        <p>
+          App kiểm tra tồn kho theo hai tầng:
+          <strong>sản phẩm chính</strong> (Shopify variant) và
+          <strong>biến thể OPTIS</strong> (option set variants):
+        </p>
+        <table>
+          <tr>
+            <th>Sản phẩm chính</th>
+            <th>Biến thể OPTIS</th>
+            <th>Kết quả</th>
+          </tr>
+          <tr>
+            <td>❌ Hết hàng</td>
+            <td>✅ Còn hàng</td>
+            <td><span class="tag no">Không cho đặt</span></td>
+          </tr>
+          <tr>
+            <td>❌ Hết hàng</td>
+            <td>❌ Hết hàng</td>
+            <td><span class="tag no">Không cho đặt</span></td>
+          </tr>
+          <tr>
+            <td>✅ Còn hàng</td>
+            <td>❌ Hết hàng</td>
+            <td><span class="tag no">Không cho đặt</span></td>
+          </tr>
+          <tr>
+            <td>✅ Còn hàng</td>
+            <td>✅ Còn hàng</td>
+            <td><span class="tag ok">Đặt hàng bình thường</span></td>
+          </tr>
+        </table>
+        <div class="box warn">
+          <strong>⚠️ Quy tắc vàng</strong>
+          Trạng thái sản phẩm chính luôn được ưu tiên. Dù biến thể OPTIS còn
+          hàng, nếu sản phẩm chính hết hàng thì vẫn không cho đặt.
+        </div>
+      </div>
+
+      <!-- ===== SECTION 5 ===== -->
+      <div class="section" id="s5">
+        <h2 class="section-title">
+          <span class="num">5</span>Luồng Chạy (Execution Flow)
+        </h2>
+
+        <h3>Khởi động app</h3>
+        <ul class="steps">
+          <li>
+            <span class="step-n">1</span>
+            <div class="step-body">
+              <strong
+                >Shopify render thẻ <code>&lt;script&gt;</code> → tải
+                <code>bss-po-js.js</code></strong
+              >
+              File JS được tải và thực thi ngay khi trình duyệt parse đến thẻ
+              script. Trước khi logic app chạy, các hàm support đã được đọc từ
+              Shopify Metaobject và khai báo vào global scope (xem Phần 6).
+            </div>
+          </li>
+          <li>
+            <span class="step-n">2</span>
+            <div class="step-body">
+              <strong><code>index.js</code> – Set up môi trường</strong>
+              Kiểm tra trang hiện tại là loại nào, điều kiện chạy (shop có
+              active plan, app có bị disable không…).
+            </div>
+          </li>
+          <li>
+            <span class="step-n">3</span>
+            <div class="step-body">
+              <strong><code>mergeInitFunction()</code> – Thu thập data</strong>
+              Đọc <code>#bss-po-store-data</code> từ DOM, đảm bảo DOM đã sẵn
+              sàng.
+            </div>
+          </li>
+          <li>
+            <span class="step-n">4</span>
+            <div class="step-body">
+              <strong><code>bssPORunScript()</code> – Core entry point</strong>
+              Khởi tạo toàn bộ core modules (cart, po, helper, money…), xác định
+              loại trang, gọi hàm xử lý tương ứng.
+            </div>
+          </li>
+          <li>
+            <span class="step-n">5</span>
+            <div class="step-body">
+              <strong
+                >Hàm theo loại trang + các điểm hook
+                <code>bssFixSupport*</code></strong
+              >
+              Tùy page type (product/cart/home/collection) chạy luồng khác nhau.
+              Trong suốt quá trình, app kiểm tra và gọi các hàm support tại từng
+              điểm hook.
+            </div>
+          </li>
+        </ul>
+
+        <h3>Luồng Render Option & Xử Lý Thay Đổi Value</h3>
+        <ul class="steps">
+          <li>
+            <span class="step-n">1</span>
+            <div class="step-body">
+              <strong>App lấy danh sách option set áp dụng cho sản phẩm</strong>
+              Sau khi <code>bssPORunScript()</code> xác định đây là product
+              page, app đọc dữ liệu option set từ <code>shopData</code> (đã được
+              nhúng sẵn vào DOM), tìm option set phù hợp với sản phẩm hiện tại
+              theo điều kiện assign (product ID, collection, tag, customer…).
+            </div>
+          </li>
+          <li>
+            <span class="step-n">2</span>
+            <div class="step-body">
+              <strong>Inject HTML option set vào DOM</strong>
+              App build HTML của toàn bộ option set rồi inject vào đúng vị trí
+              trên product page. Vị trí inject được xác định tự động hoặc
+              override qua hook
+              <code>bssFixSupportChangeOptionSetPositionForProduct</code>. Sau
+              khi inject xong, hook
+              <code>bssFixSupportCustomOptionSetHTML</code> được gọi để cho phép
+              can thiệp thêm (CSS, logic giá, v.v.).
+            </div>
+          </li>
+          <li>
+            <span class="step-n">3</span>
+            <div class="step-body">
+              <strong>Gắn event listener lên các option input</strong>
+              App lắng nghe sự kiện thay đổi (<code>change</code> /
+              <code>input</code>) trên từng option. Mỗi khi user thay đổi giá
+              trị:
+              <ul style="margin-top: 8px">
+                <li>
+                  App cập nhật trạng thái nội bộ (option nào đang được chọn,
+                  value nào)
+                </li>
+                <li>
+                  Chạy lại <strong>Conditional Logic</strong> — ẩn/hiện các
+                  option phụ thuộc
+                </li>
+                <li>
+                  Tính lại <strong>Price Add-on</strong> — cập nhật giá hiển thị
+                  trên trang
+                </li>
+                <li>
+                  Kiểm tra lại <strong>tồn kho</strong> nếu option có linked
+                  product (Upsell)
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="step-n">4</span>
+            <div class="step-body">
+              <strong>User bấm ATC → App validate toàn bộ option</strong>
+              Trước khi gọi API, app kiểm tra tất cả option
+              <code>required</code> đã được chọn chưa, các ràng buộc khác
+              (min/max length cho text, định dạng file upload…), và hook
+              <code>bssFixSupportCustomValidate</code> nếu có. Nếu validate
+              <strong>fail</strong> → hiển thị lỗi, dừng lại. Nếu validate
+              <strong>pass</strong> → tiến hành luồng Add To Cart bên dưới.
+            </div>
+          </li>
+        </ul>
+
+        <h3>Luồng Add To Cart (không dùng ATC Proxy)</h3>
+        <ul class="steps">
+          <li>
+            <span class="step-n">1</span>
+            <div class="step-body">
+              <strong
+                >App gắn <code>click</code> event vào nút ATC của theme</strong
+              >
+              Tìm nút ATC theo selector mặc định (hoặc qua
+              <code>bssFixSupportActionAddToCart</code> nếu selector khác).
+            </div>
+          </li>
+          <li>
+            <span class="step-n">2</span>
+            <div class="step-body">
+              <strong>Người dùng bấm → app validate option</strong>
+              Kiểm tra required, validate giá trị. Nếu fail → hiện lỗi, dừng.
+            </div>
+          </li>
+          <li>
+            <span class="step-n">3</span>
+            <div class="step-body">
+              <strong>App tự tạo body và gọi API <code>/cart/add</code></strong>
+              App lấy variant ID, quantity, properties (option values) rồi
+              <strong>tự gọi API của Shopify</strong> — không để theme gọi nữa.
+            </div>
+          </li>
+          <li>
+            <span class="step-n">4</span>
+            <div class="step-body">
+              <strong>Xử lý response</strong>
+              Gọi <code>bssFixSupportHandleMinicart</code> hoặc
+              <code>bssFixSupportCustomAfterAddToCart</code> nếu có. Nếu không,
+              app tự xử lý mặc định.
+            </div>
+          </li>
+        </ul>
+
+        <div class="box warn">
+          <strong>⚠️ Vấn đề của cách này</strong>
+          Vì app tự gọi API thay cho theme, các hành vi mặc định của theme như
+          <strong>mở cart drawer không reload</strong>,
+          <strong>cập nhật icon giỏ hàng</strong>... bị mất. Đây là lý do tồn
+          tại của <strong>ATC Proxy</strong> (xem Phần 6).
+        </div>
+      </div>
+
+      <!-- ===== SECTION 6 ===== -->
+      <div class="section" id="s6">
+        <h2 class="section-title">
+          <span class="num">6</span>Các Hàm Support – Cơ Chế và Tổng Quan
+        </h2>
+
+        <h3>Cơ chế hook</h3>
+        <p>
+          Trong source code của app, tại nhiều điểm xử lý, app kiểm tra xem hàm
+          <code>bssFixSupport[TênHàm]</code> có tồn tại trong
+          <strong>global scope</strong> (<code>window</code>) không. Nếu có, gọi
+          hàm đó và dùng giá trị trả về để
+          <strong>ghi đè hành vi mặc định</strong>. Nếu không, app chạy logic
+          mặc định của nó.
+        </p>
+
+        <pre><code>// Ví dụ cơ chế hook trong source code app (đã đơn giản hóa):
+
+// Hook "sau khi render option set"
+if (typeof bssFixSupportCustomOptionSetHTML === 'function') {
+    bssFixSupportCustomOptionSetHTML(BSS_PO, optionSetHtml, idProduct, appliedOptionSet);
+}
+
+// Hook "xác định nút ATC"
+if (typeof bssFixSupportActionAddToCart === 'function') {
+    const result = bssFixSupportActionAddToCart(BSS_PO, atcBtn, stickyBtn, addATCEvent);
+    add_to_cart_btn = result.add_to_cart_btn;     // override
+    sticky_add_to_btn = result.sticky_add_to_btn; // override
+} else {
+    // chạy logic tìm nút ATC mặc định
+}</code></pre>
+
+        <h3 id="s6-vahu">Vahu – Tool quản lý hàm support</h3>
+        <p>
+          Dev BSS <strong>không sửa trực tiếp vào theme của merchant</strong>.
+          Thay vào đó, BSS có tool nội bộ tên là <strong>Vahu</strong> để viết
+          và quản lý các hàm support cho từng store.
+        </p>
+
+        <div class="vahu-flow">
+          <div class="vahu-steps">
+            <div class="vahu-step">
+              <div class="vahu-icon">✍️</div>
+              <div class="vahu-step-title">Dev viết trên Vahu</div>
+              <div class="vahu-step-desc">
+                Tìm store theo domain, mở editor, viết các hàm bssFixSupport*
+                cần thiết
+              </div>
+            </div>
+            <div class="vahu-step">
+              <div class="vahu-icon">💾</div>
+              <div class="vahu-step-title">Save → lưu DB</div>
+              <div class="vahu-step-desc">
+                Code được lưu vào database của BSS
+              </div>
+            </div>
+            <div class="vahu-step">
+              <div class="vahu-icon">☁️</div>
+              <div class="vahu-step-title">Đẩy lên Metaobject</div>
+              <div class="vahu-step-desc">
+                Tự động đồng bộ lên Shopify Metaobject của store
+              </div>
+            </div>
+            <div class="vahu-step">
+              <div class="vahu-icon">🌐</div>
+              <div class="vahu-step-title">Page load → global</div>
+              <div class="vahu-step-desc">
+                Script app đọc từ Metaobject, khai báo hàm vào window trước khi
+                chạy logic
+              </div>
+            </div>
+            <div class="vahu-step">
+              <div class="vahu-icon">🎯</div>
+              <div class="vahu-step-title">Hook được gọi</div>
+              <div class="vahu-step-desc">
+                App kiểm tra typeof, gọi hàm, override hành vi mặc định
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box note">
+          <strong>📌 Mỗi store có code riêng biệt và có version history</strong>
+          Vahu phân store theo domain. Mỗi store có editor riêng và lịch sử các
+          version code — có thể xem lại và rollback về version trước nếu cần.
+        </div>
+
+        <div class="box danger">
+          <strong>🚫 Không bao giờ sửa trực tiếp vào core code của app</strong>
+          Mọi customization đều thực hiện qua Vahu. Không sửa file
+          <code>bss-po-js.js</code>, không sửa thẳng theme.liquid của merchant
+          (trừ khi manual install yêu cầu thêm snippet ban đầu).
+        </div>
+
+        <h3 id="s6-list">Danh sách hàm support thường dùng</h3>
+        <table>
+          <tr>
+            <th>Hàm</th>
+            <th>Được gọi khi nào</th>
+            <th>Dùng để làm gì</th>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportForSpecificStore</code></td>
+            <td>Ngay khi app khởi động</td>
+            <td>Inject CSS/JS riêng, setup ban đầu cho store cụ thể</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportGenerateProductPage</code></td>
+            <td>Khi vào product page</td>
+            <td>Khởi tạo logic riêng cho trang sản phẩm</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportGenerateHomePage</code></td>
+            <td>Khi vào home/collection page</td>
+            <td>Khởi tạo logic cho trang listing sản phẩm</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportCustomOptionSetHTML</code></td>
+            <td>Sau khi option set được inject vào DOM</td>
+            <td>Custom HTML, CSS, logic giá, conditional sau khi render</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportChangeOptionSetPositionForProduct</code></td>
+            <td>Khi app cần xác định vị trí insert option</td>
+            <td>Override vị trí hiển thị option set trên product page</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportActionAddToCart</code></td>
+            <td>Khi app tìm nút ATC để gắn event</td>
+            <td>
+              Chỉ định đúng nút ATC và sticky ATC; clone node để loại bỏ event
+              cũ
+            </td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportCustomAddATCEvent</code></td>
+            <td>Sau khi gắn event vào nút ATC chính</td>
+            <td>
+              Gắn thêm event vào nút phụ (sticky ATC xuất hiện muộn, nút ATC
+              khác)
+            </td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportCustomValidate</code></td>
+            <td>Sau khi app validate option xong</td>
+            <td>Thêm validate tùy chỉnh, chặn ATC theo điều kiện riêng</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportCustomAfterAddToCart</code></td>
+            <td>Sau khi API /cart/add thành công</td>
+            <td>Thực hiện action sau ATC (ví dụ: redirect sang cart page)</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportHandleMinicart</code></td>
+            <td>Sau ATC thành công, để xử lý minicart</td>
+            <td>
+              Custom hành vi mở minicart: mở drawer, reload rồi mở, hoặc
+              redirect
+            </td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportFixFormActionCart</code></td>
+            <td>Khi app tìm form cart element</td>
+            <td>
+              Chỉ định đúng form cart khi minicart của app khác thay thế cart
+              mặc định
+            </td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportPriceAddOnTextValue</code></td>
+            <td>Khi render text price add-on</td>
+            <td>Custom định dạng text phụ phí cạnh label option</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportAddOnTextPosition</code></td>
+            <td>Khi render vị trí text price add-on</td>
+            <td>Di chuyển text phụ phí sang vị trí khác trong DOM</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportRemoveAddOnTextInCart</code></td>
+            <td>Khi render cart page</td>
+            <td>Return <code>true</code> để ẩn text phụ phí trong cart</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportCustomQuantity</code></td>
+            <td>Khi render input số lượng của option</td>
+            <td>Custom UI input quantity bên trong option</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportCustomLocale</code></td>
+            <td>Khi khởi tạo date picker</td>
+            <td>Override ngôn ngữ date picker</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportSetTimerDebounce</code></td>
+            <td>
+              Khi render nút Edit trong cart page (mỗi line item gọi một lần)
+            </td>
+            <td>Custom debounce timer; <strong>phải return timer</strong></td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportManualInstall</code></td>
+            <td>Khi khởi động app</td>
+            <td>Bật tính năng đặc biệt: ATC Proxy, cart edit option…</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportGetSelector</code></td>
+            <td>Khi app tìm variant selector</td>
+            <td>Override selector detect variant hiện tại trong theme</td>
+          </tr>
+          <tr>
+            <td><code>bssFixSupportGetDefaultVariantId</code></td>
+            <td>Khi app lấy variant ID để ATC</td>
+            <td>Override cách app lấy variant ID hiện tại</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ===== SECTION 7 ===== -->
+      <div class="section" id="s7">
+        <h2 class="section-title">
+          <span class="num">7</span>ATC Proxy – Khi Nào Dùng và Cách Dùng
+        </h2>
+
+        <h3>ATC Proxy là gì?</h3>
+        <p>
+          ATC Proxy là cơ chế
+          <strong
+            >intercept request Add To Cart ở tầng <code>fetch()</code> và
+            <code>XMLHttpRequest</code></strong
+          >. Thay vì app tự gọi API (cách thông thường), app "lắng nghe" bất kỳ
+          request nào đến URL <code>/cart/add</code> từ theme,
+          <strong>merge thêm option properties</strong> vào body của request đó,
+          rồi để request tiếp tục đến Shopify như bình thường.
+        </p>
+
+        <h3>Tại sao cần ATC Proxy?</h3>
+        <p>
+          Cách mặc định:
+          <strong
+            >app gắn event vào nút ATC → validate → tự gọi API
+            <code>/cart/add</code></strong
+          >. Vấn đề: app thay thế hoàn toàn hành vi theme khi bấm ATC, khiến mất
+          đi các logic riêng của theme như mở cart drawer, không reload trang,
+          cập nhật icon giỏ hàng...
+        </p>
+        <p>
+          Với ATC Proxy:
+          <strong>app không còn phụ thuộc vào nút ATC nữa</strong>. Chỉ cần nút
+          ATC của theme được bấm và request <code>/cart/add</code> được gửi đi,
+          proxy tự động can thiệp ở tầng <code>fetch()</code>, merge option
+          properties vào, rồi tiếp tục. Theme xử lý response như bình thường —
+          cart drawer vẫn mở, số lượng vẫn cập nhật, không reload, và properties
+          của các app khác cũng không bị mất.
+        </p>
+
+        <div class="box tip">
+          <strong>✅ Tóm tắt lợi ích</strong>
+          Proxy = giữ nguyên 100% hành vi của theme + đảm bảo option properties
+          được gửi lên + không conflict properties của app khác.
+        </div>
+
+        <div class="box warn">
+          <strong>⚠️ Giới hạn của ATC Proxy</strong>
+          Proxy hoạt động bằng cách patch <code>window.fetch</code>. Nếu một app
+          khác cũng patch <code>window.fetch</code> theo cách của họ và chạy sau
+          app mình, proxy của BSS có thể bị ghi đè và không intercept được
+          request nữa. Trong trường hợp này cần tìm cách phối hợp với flow của
+          app kia hoặc dùng giải pháp khác.
+        </div>
+
+        <h3>Khi nào cần bật ATC Proxy?</h3>
+        <ul>
+          <li>
+            Bấm ATC nhưng option không được gửi lên (thiếu properties trong
+            cart) dù validation pass
+          </li>
+          <li>
+            Cart drawer không reload sau ATC — muốn giữ hành vi đó mà vẫn có
+            option
+          </li>
+          <li>
+            Theme dùng URL ATC khác <code>/cart/add.js</code> (ví dụ:
+            <code>/es/cart/add</code>)
+          </li>
+          <li>Conflict với app khác cũng hook vào nút ATC</li>
+          <li>
+            Option <code>required</code> không hoạt động vì theme trigger ATC
+            theo cách riêng
+          </li>
+        </ul>
+
+        <h3>Cách bật ATC Proxy</h3>
+        <pre><code>// Viết hàm này trên Vahu cho store cần bật proxy
+function bssFixSupportManualInstall() {
+    return {
+        proxyAtcRequest: true
+    };
+}</code></pre>
+
+        <h3>Các hàm hỗ trợ tùy chỉnh Proxy</h3>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">bssFixSupportUpdateAtcUrlInProxyATC</span>
+            <span class="fn-tag ft-misc">Proxy Config</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Theme dùng URL ATC khác list mặc định.
+            </p>
+            <pre><code>function bssFixSupportUpdateAtcUrlInProxyATC(defaultUrls) {
+    return [...defaultUrls, '/es/cart/add', '/api/cart/add'];
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">bssFixSupportUpdateFormatBodyATCProxy</span>
+            <span class="fn-tag ft-misc">Proxy Config</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Cần thay đổi cấu trúc body request
+              trước khi gửi.
+            </p>
+            <pre><code>function bssFixSupportUpdateFormatBodyATCProxy(BSS_PO, bodyObj, bodyInfo, mergeItems) {
+    bodyObj.custom_field = 'value';
+    // bodyInfo: { isString, isURLEncoded, isFormData, isObject }
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="fn-card">
+          <div class="fn-header">
+            <span class="fn-name">bssFixSupportInvalidBodyInProxyATC</span>
+            <span class="fn-tag ft-misc">Proxy Config</span>
+          </div>
+          <div class="fn-body">
+            <p>
+              <strong>Dùng khi:</strong> Muốn custom xử lý khi body bị invalid
+              sau khi merge.
+            </p>
+            <pre><code>function bssFixSupportInvalidBodyInProxyATC() {
+    console.error('Invalid ATC body');
+    return false;
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 8 ===== -->
+      <div class="section" id="s8">
+        <h2 class="section-title">
+          <span class="num">8</span>Các Case Custom Hay Gặp
+        </h2>
+        <p>
+          Đây là các yêu cầu custom phổ biến nhất khi support store. Tất cả đều
+          được thực hiện qua các hàm <code>bssFixSupport*</code> trên Vahu —
+          không sửa code theme hay core app.
+        </p>
+
+        <div class="box note">
+          <strong>📚 Xem thêm các case và lỗi khác</strong>
+          Tài liệu này chỉ bao gồm các case phổ biến nhất. Xem đầy đủ tại:
+          <a
+            href="https://www.notion.so/B-k-p-Optis-1e4a8202659d80269d79ed6a2c18b767?source=copy_link"
+            target="_blank"
+            style="color: #ef4444; font-weight: 600"
+          >
+            📖 Bí kíp Optis – Notion
+          </a>
+        </div>
+
+        <!-- CASE 1 -->
+        <div class="case-card" style="margin-top: 20px">
+          <div class="case-header">
+            <span class="case-icon">🎨</span>
+            <div>
+              <div class="case-title">
+                Case 1 – Custom giao diện / CSS của option
+              </div>
+              <div style="font-size: 13px; color: #64748b; margin-top: 2px">
+                Đổi màu sắc, font, kích thước, layout để hoà hợp với theme của
+                store
+              </div>
+            </div>
+          </div>
+          <div class="case-body">
+            <p>
+              <strong>Yêu cầu thường gặp:</strong> Khách muốn thay đổi màu sắc,
+              font chữ, kích thước, spacing của các option để phù hợp với thiết
+              kế tổng thể của store.
+            </p>
+            <p>
+              <strong>Cách làm:</strong> Dùng
+              <code>bssFixSupportCustomOptionSetHTML</code> trên Vahu để inject
+              một thẻ <code>&lt;style&gt;</code> vào <code>&lt;head&gt;</code>.
+              Dùng <code>id</code> cho thẻ style để tránh inject trùng mỗi lần
+              hàm được gọi.
+            </p>
+            <pre><code>function bssFixSupportCustomOptionSetHTML(BSS_PO, optionSetHtml, idProductOnHomePage, appliedOptionSet) {
+    if (!appliedOptionSet) return;
+
+    // Kiểm tra tránh inject CSS trùng lặp
+    const existingStyleEl = document.querySelector("#bss-custom");
+    if (existingStyleEl) return;
+
+    const styleEl = document.createElement("style");
+    styleEl.id = "bss-custom";
+    styleEl.textContent = `
+        /* Ví dụ: thay đổi layout grid của option set */
+        .bss-po-product-page {
+            grid-template-columns: auto;
+        }
+
+        /* Ví dụ: custom màu nút option */
+        .po-option__button-value {
+            border-radius: 4px;
+            border-color: #333;
+        }
+
+        /* Ví dụ: custom label */
+        .po-label-container {
+            font-weight: 600;
+            font-size: 14px;
+        }
+    `;
+    document.head.appendChild(styleEl);
+}</code></pre>
+            <div class="box note">
+              <strong>📌 Tìm selector đúng</strong>
+              Dùng F12 inspect vào option đang render trên storefront để tìm
+              class name cần custom. Các class của app đều có prefix
+              <code>po-</code> hoặc <code>bss-po-</code>.
+            </div>
+          </div>
+        </div>
+
+        <!-- CASE 2 -->
+        <div class="case-card" style="margin-top: 20px">
+          <div class="case-header">
+            <span class="case-icon">📦</span>
+            <div>
+              <div class="case-title">Case 2 – Custom body request khi ATC</div>
+              <div style="font-size: 13px; color: #64748b; margin-top: 2px">
+                Thêm/xóa properties, kết hợp với app khác cũng có properties
+                riêng
+              </div>
+            </div>
+          </div>
+          <div class="case-body">
+            <p><strong>Yêu cầu thường gặp:</strong></p>
+            <ul>
+              <li>
+                Thêm properties tùy chỉnh vào body request trước khi gửi lên
+                Shopify
+              </li>
+              <li>Xóa bớt một số properties không cần thiết khỏi body</li>
+              <li>
+                Kết hợp với app khác cũng có properties riêng mà không bị ghi đè
+                nhau
+              </li>
+            </ul>
+
+            <p><strong>Có 2 hàm tùy theo cách ATC đang dùng:</strong></p>
+
+            <h4>
+              Khi đang bật ATC Proxy → dùng
+              <code>bssFixSupportUpdateFormatBodyATCProxy</code>
+            </h4>
+            <p>
+              Hàm được gọi sau khi proxy đã merge option properties vào body,
+              cho phép can thiệp thêm trước khi request được gửi đi.
+            </p>
+            <pre><code>function bssFixSupportUpdateFormatBodyATCProxy(BSS_PO, bodyObj, bodyInfo, mergeItems) {
+    // bodyObj: object body đã được parse (có thể là JSON object, FormData object...)
+    // bodyInfo: { isString, isURLEncoded, isFormData, isObject }
+    // mergeItems: các option properties đã được merge vào
+
+    // Ví dụ: thêm custom property
+    if (bodyObj.properties) {
+        bodyObj.properties['_custom_field'] = 'custom_value';
+    }
+
+    // Ví dụ: xóa property không cần
+    if (bodyObj.properties) {
+        delete bodyObj.properties['_unwanted_field'];
+    }
+    // Không cần return, chỉnh sửa trực tiếp bodyObj
+}</code></pre>
+
+            <h4>
+              Khi dùng event của app (không dùng Proxy) → dùng
+              <code>bssFixSupportUpdateFormatBody</code>
+            </h4>
+            <p>
+              Tùy theo từng yêu cầu cụ thể, đọc src code để biết tham số và cách
+              dùng phù hợp.
+            </p>
+
+            <div class="box warn">
+              <strong>⚠️ Lưu ý</strong>
+              Vì mỗi store và app third-party có cấu trúc body khác nhau, cần
+              đọc src code của app và inspect request thực tế (F12 → Network →
+              <code>/cart/add</code>) để hiểu đúng format body trước khi custom.
+            </div>
+          </div>
+        </div>
+
+        <!-- CASE 3 -->
+        <div class="case-card" style="margin-top: 20px">
+          <div class="case-header">
+            <span class="case-icon">🛒</span>
+            <div>
+              <div class="case-title">
+                Case 3 – Custom hành vi sau khi ATC thành công
+              </div>
+              <div style="font-size: 13px; color: #64748b; margin-top: 2px">
+                Mở minicart, redirect sang cart page, reload rồi mở cart drawer
+              </div>
+            </div>
+          </div>
+          <div class="case-body">
+            <p>
+              <strong>Mặc định của app:</strong> Sau khi ATC thành công, app gọi
+              API của Shopify và tự xử lý response. Hành vi mặc định của theme
+              (mở cart drawer, cập nhật icon…) có thể bị mất. Dùng các hàm sau
+              để custom lại.
+            </p>
+
+            <h4>Pattern 1 – Mở minicart không reload trang</h4>
+            <p>
+              Dùng <code>bssFixSupportHandleMinicart</code>. App nhận
+              <code>data.sections</code> từ response ATC, dùng để update HTML
+              cart drawer rồi click icon để mở.
+            </p>
+            <pre><code>function bssFixSupportHandleMinicart(BSS_PO, data, customHandleMinicart) {
+    function updateCartIconQuantity(originalSelector, updateCartDOM, updateSelector) {
+        const originalQuantityIcon = document.querySelectorAll(originalSelector);
+        const updateQuantityIcon = updateCartDOM.querySelector(updateSelector);
+        if (originalQuantityIcon.length && updateQuantityIcon) {
+            originalQuantityIcon.forEach((icon) => {
+                icon.innerHTML = updateQuantityIcon.innerHTML;
+            });
+        }
+    }
+
+    function handleUpdateHTML(targetNode, dataSection, updateSelector, originalQuantitySelector, updateQuantitySelector) {
+        if (targetNode) {
+            const parser = new DOMParser();
+            let parsedHTML = parser.parseFromString(data.sections[dataSection], 'text/html');
+            const updateCart = parsedHTML.querySelector(updateSelector);
+            if (updateCart) {
+                targetNode.innerHTML = updateCart.innerHTML;
+                targetNode.style.width = '56rem';
+            }
+            const quantityParsedHTML = new DOMParser().parseFromString(data.sections['cart-icon-bubble'], 'text/html');
+            if (originalQuantitySelector && updateQuantitySelector) {
+                updateCartIconQuantity(originalQuantitySelector, quantityParsedHTML, updateQuantitySelector);
+            }
+        }
+    }
+
+    try {
+        let miniCartDrawer = document.querySelector('#update-cart');
+        handleUpdateHTML(miniCartDrawer, 'cart-drawer', '#update-cart', '#cart-icon-bubble', '#cart-icon-bubble');
+
+        let miniCartIcon = document.querySelector('a[aria-controls="CartDrawer"]');
+        if (miniCartIcon) miniCartIcon.click();
+        BSS_PO.cart.initMiniCart(1000);
+        customHandleMinicart = true;
+    } catch (error) {
+        console.error(error);
+    }
+
+    return customHandleMinicart;
+}</code></pre>
+
+            <h4>Pattern 2 – Reload trang rồi mở cart drawer</h4>
+            <p>
+              Dùng <code>sessionStorage</code> để lưu trạng thái, reload trang,
+              sau đó <code>bssFixSupportGenerateProductPage</code> đọc lại và
+              click icon cart.
+            </p>
+            <pre><code>function bssFixSupportHandleMinicart(BSS_PO, data, customHandleMinicart) {
+    customHandleMinicart = true;
+    sessionStorage.setItem('openCartDrawer', true);
+    window.location.reload();
+    return customHandleMinicart;
+}
+
+function bssFixSupportGenerateProductPage() {
+    if (sessionStorage.getItem('openCartDrawer')) {
+        const findCartIcon = document.querySelector('a[aria-controls="CartDrawer"]');
+        if (findCartIcon) {
+            findCartIcon.click();
+            sessionStorage.removeItem('openCartDrawer');
+        }
+    }
+    return;
+}</code></pre>
+
+            <h4>Pattern 3 – Redirect sang cart page</h4>
+            <p>
+              Dùng khi store không có cart drawer, muốn chuyển thẳng sang trang
+              <code>/cart</code> sau khi ATC.
+            </p>
+            <pre><code>function bssFixSupportHandleMinicart(BSS_PO, data, customHandleMinicart) {
+    customHandleMinicart = true;
+    window.location.href = '/cart';
+    return customHandleMinicart;
+}</code></pre>
+
+            <div class="box note">
+              <strong>📌 Lưu ý</strong>
+              <code>customHandleMinicart = true</code> báo cho app biết đã tự xử
+              lý minicart rồi, app sẽ không chạy logic mặc định nữa. Luôn phải
+              return giá trị này.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 9 ===== -->
+      <div class="section" id="s9">
+        <h2 class="section-title">
+          <span class="num">9</span>Các Bug Hay Gặp – Nguyên Nhân và Cách Fix
+        </h2>
+        <p>
+          Dưới đây là các lỗi thực tế hay gặp nhất khi support store, kèm nguyên
+          nhân và code fix cụ thể.
+        </p>
+
+        <div class="box note">
+          <strong>📚 Xem thêm các bug và case khác</strong>
+          Tài liệu này chỉ bao gồm các bug phổ biến nhất. Xem đầy đủ tại:
+          <a
+            href="https://www.notion.so/B-k-p-Optis-1e4a8202659d80269d79ed6a2c18b767?source=copy_link"
+            target="_blank"
+            style="color: #ef4444; font-weight: 600"
+          >
+            📖 Bí kíp Optis – Notion
+          </a>
+        </div>
+
+        <!-- BUG 1 -->
+        <div class="case-card">
+          <div class="case-header">
+            <span class="case-icon">🐛</span>
+            <div>
+              <div class="case-title">
+                Bug 1 – Option không hiển thị trên product page
+              </div>
+            </div>
+          </div>
+          <div class="case-row">
+            <div>
+              <div class="case-row-label">Triệu chứng</div>
+              Vào product page nhưng không thấy option set, hoặc option set bị
+              ẩn đi không thấy được.
+            </div>
+            <div>
+              <div class="case-row-label">Nguyên nhân</div>
+              App tự detect vị trí để inject option set vào DOM. Một số theme có
+              cấu trúc khác khiến app inject option vào một element không nằm
+              trong viewport hoặc bị ẩn đi.
+            </div>
+          </div>
+          <div class="case-body">
+            <p>
+              <strong>Cách fix:</strong> Dùng
+              <code>bssFixSupportChangeOptionSetPositionForProduct</code> trên
+              Vahu để chỉ định lại đúng vị trí cần inject. Tìm selector phù hợp
+              bằng cách F12 inspect DOM của theme, hàm phải return
+              <code>changed = true</code> khi inject thành công.
+            </p>
+            <pre><code>function bssFixSupportChangeOptionSetPositionForProduct(BSS_PO, optionSetHtml, idProductOnHomePage, changed) {
+    try {
+        const product_options_selector = document.querySelector('variant-selects[data-section^="template--"]');
+
+        if (product_options_selector) {
+            product_options_selector.insertAdjacentHTML('afterend', optionSetHtml);
+            changed = true;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+    return changed;
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- BUG 2 -->
+        <div class="case-card">
+          <div class="case-header">
+            <span class="case-icon">🐛</span>
+            <div>
+              <div class="case-title">
+                Bug 2 – Bấm ATC nhưng không có option trong cart / option
+                required vẫn ATC được
+              </div>
+            </div>
+          </div>
+          <div class="case-row">
+            <div>
+              <div class="case-row-label">Triệu chứng</div>
+              Bấm ATC thành công nhưng trong cart không có properties của
+              option. Hoặc option required không chọn vẫn ATC được mà không báo
+              lỗi.
+            </div>
+            <div>
+              <div class="case-row-label">Nguyên nhân</div>
+              App tự detect và gắn event vào nút ATC. Một số theme detect nút
+              ATC sai làm app không gắn được event. Hoặc app đã gắn event rồi
+              nhưng theme re-render lại nút ATC làm mất event của app.
+            </div>
+          </div>
+          <div class="case-body">
+            <p>
+              <strong>Cách fix 1 (ưu tiên): Bật ATC Proxy</strong> — proxy hoạt
+              động ở tầng <code>fetch()</code> nên không phụ thuộc vào nút ATC
+              nào được render.
+            </p>
+            <pre><code>function bssFixSupportManualInstall() {
+    return {
+        proxyAtcRequest: true
+    };
+}</code></pre>
+
+            <p>
+              <strong>Cách fix 2: Nếu ATC Proxy không được</strong> — dùng
+              <code>bssFixSupportActionAddToCart</code> để chỉ định đúng nút ATC
+              cho app gắn event vào. Tìm selector nút ATC đúng bằng F12 inspect.
+            </p>
+            <pre><code>function bssFixSupportActionAddToCart(BSS_PO, add_to_cart_btn, sticky_add_to_btn, addATCEvent) {
+    let new_add_to_cart_btn = document.querySelector('xo-cart-add button');
+    let new_sticky_add_to_cart_btn = null;
+
+    if (!new_add_to_cart_btn) new_add_to_cart_btn = add_to_cart_btn;
+    if (!new_sticky_add_to_cart_btn) new_sticky_add_to_cart_btn = sticky_add_to_btn;
+
+    return { add_to_cart_btn: new_add_to_cart_btn, sticky_add_to_btn: new_sticky_add_to_cart_btn };
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- BUG 3 -->
+        <div class="case-card">
+          <div class="case-header">
+            <span class="case-icon">🐛</span>
+            <div>
+              <div class="case-title">
+                Bug 3 – Option set đã render xong nhưng đổi variant thì mất
+              </div>
+            </div>
+          </div>
+          <div class="case-row">
+            <div>
+              <div class="case-row-label">Triệu chứng</div>
+              Option set hiển thị bình thường khi vào trang. Nhưng khi đổi sang
+              variant khác thì option set biến mất.
+            </div>
+            <div>
+              <div class="case-row-label">Nguyên nhân</div>
+              Option set được inject vào một element trong DOM. Khi người dùng
+              đổi variant, theme re-render lại element đó (hoặc toàn bộ product
+              form), xóa đi nội dung cũ bao gồm cả option set của app.
+            </div>
+          </div>
+          <div class="case-body">
+            <p>
+              <strong>Cách fix:</strong> Dùng
+              <code>bssFixSupportGenerateProductPage</code> để theo dõi sự kiện
+              thay đổi variant. Khi phát hiện URL thay đổi (hoặc DOM thay đổi),
+              gọi lại hàm render option set.
+            </p>
+            <pre><code>function bssFixSupportGenerateProductPage(BSS_PO) {
+    let prevUrl = location.href;
+
+    const run = () => {
+        setTimeout(() => {
+            BSS_PO.po.generateOptionSetOnProductPage({});
+        }, 500);
+    };
+
+    ['pushState', 'replaceState'].forEach(type => {
+        const orig = history[type];
+        history[type] = function (...args) {
+            const ret = orig.apply(this, args);
+            run();
+            return ret;
+        };
+    });
+
+    window.addEventListener('popstate', run);
+    run(); // initial call
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- BUG 4 -->
+        <div class="case-card">
+          <div class="case-header">
+            <span class="case-icon">🐛</span>
+            <div>
+              <div class="case-title">
+                Bug 4 – Cài Featured Products nhưng không work
+              </div>
+            </div>
+          </div>
+          <div class="case-row">
+            <div>
+              <div class="case-row-label">Triệu chứng</div>
+              Đã bật tính năng Featured Products và thêm snippet vào theme nhưng
+              option vẫn không hiển thị trên home page.
+            </div>
+            <div>
+              <div class="case-row-label">Nguyên nhân</div>
+              App chỉ chạy logic Featured Products khi detect đây là trang home
+              page. Một số theme có đường dẫn home page khác với chuẩn (ví dụ:
+              có prefix locale, subdirectory…) khiến app không nhận ra và bỏ
+              qua.
+            </div>
+          </div>
+          <div class="case-body">
+            <p>
+              <strong>Bước 1:</strong> Kiểm tra snippet
+              <code>bss-po-featured-product-key</code> đã được thêm đúng vào
+              theme chưa.
+            </p>
+            <p>
+              <strong>Bước 2:</strong> Nếu snippet đúng rồi mà vẫn không work,
+              dùng <code>bssFixSupportFeatureProduct</code> trên Vahu để báo cho
+              app biết trang hiện tại cần chạy Featured Products:
+            </p>
+            <pre><code>function bssFixSupportFeatureProduct(BSS_PO) {
+    let hrefAdr = BSS_PO.page.getPage();
+    if (hrefAdr[3] == "pages") return true;
+    return hrefAdr[hrefAdr.length - 1] == ''
+        || hrefAdr[hrefAdr.length - 1] == (
+            Shopify && Shopify.routes && Shopify.routes.root.slice(1, Shopify.routes.root.length - 1)
+        );
+}</code></pre>
+            <div class="box note">
+              <strong>📌 Giải thích</strong>
+              <code>BSS_PO.page.getPage()</code> trả về mảng các phần của URL
+              hiện tại. Hàm này return <code>true</code> khi URL khớp với home
+              page — app sẽ chạy logic Featured Products. Dev có thể tùy chỉnh
+              điều kiện tùy theo cấu trúc URL của từng store.
+            </div>
+          </div>
+        </div>
+
+        <!-- BUG 5 -->
+        <div class="case-card">
+          <div class="case-header">
+            <span class="case-icon">🐛</span>
+            <div>
+              <div class="case-title">
+                Bug 5 – Bấm Edit / Update trong cart page nhưng không thấy dữ
+                liệu được cập nhật
+              </div>
+            </div>
+          </div>
+          <div class="case-row">
+            <div>
+              <div class="case-row-label">Triệu chứng</div>
+              Bấm nút Edit trong cart, chỉnh sửa option, bấm Update nhưng cart
+              vẫn hiển thị giá trị cũ, hoặc nút Edit/Update không phản hồi.
+            </div>
+            <div>
+              <div class="case-row-label">Nguyên nhân</div>
+              Lệch key — mỗi line item trong Shopify cart có một
+              <code>key</code> duy nhất để identify. Khi giỏ hàng được update
+              (thêm/bớt sản phẩm, đổi quantity…), key thay đổi nhưng app vẫn
+              dùng key cũ nên không tìm được đúng line item cần update.
+            </div>
+          </div>
+          <div class="case-body">
+            <p>
+              <strong>Cách fix:</strong> Reload lại trang sau khi update để lấy
+              key mới nhất, kết hợp với
+              <code>bssFixSupportGetSectionMiniCart</code> để app lấy đúng
+              section cần refresh.
+            </p>
+            <pre><code>// Reload trang sau khi edit xong để đồng bộ key mới
+function bssFixSupportUpdateUIAfterEditOptions(BSS_PO, sectionsSelector, dataAfterEnd) {
+    window.location.reload();
+}
+
+// Trả về section ID để app lấy lại session cart mới nhất
+function bssFixSupportGetSectionMiniCart() {
+    return 'header';
+}</code></pre>
+            <div class="box note">
+              <strong>📌 Lưu ý</strong>
+              Giá trị trả về của <code>bssFixSupportGetSectionMiniCart</code> là
+              section ID trong theme của store đó. Tùy theme mà section ID khác
+              nhau — cần F12 kiểm tra để trả về đúng section.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 10 ===== -->
+      <div class="section" id="s10">
+        <h2 class="section-title">
+          <span class="num">10</span>Hướng Dẫn Installation
+        </h2>
+
+        <p>
+          Một số theme Shopify thì app tự hoạt động được (auto), một số theme
+          thì không — lúc đó dev phải tự thêm snippet vào theme thủ công. Ngoài
+          ra, các <strong>tính năng nâng cao</strong> dù theme có auto work hay
+          không cũng đều cần thêm snippet vào theme mới hoạt động được.
+        </p>
+
+        <div class="box note">
+          <strong>📌 Quy trình chung cho tất cả tính năng nâng cao</strong>
+          Chỉ có 2 bước: <strong>(1) Bật toggle</strong> trong trang tính năng
+          (vào Advanced Features → bấm tên tính năng → bật toggle) →
+          <strong>(2) Thêm snippet vào theme</strong> của merchant (mở file
+          liquid tương ứng → Ctrl+F tìm đúng tag → paste snippet vào → Save).
+        </div>
+
+        <div class="box note">
+          <strong>📌 Khi không tìm thấy đúng file hoặc tag</strong>
+          Mỗi theme có cấu trúc khác nhau. Nếu không tìm thấy file hoặc tag được
+          chỉ định, mở storefront → F12 → inspect element cần tìm → xem
+          class/attribute đang dùng → Ctrl+F tìm class đó trong code theme → xác
+          định đúng file và vị trí cần paste snippet.
+        </div>
+
+        <!-- ── TÍNH NĂNG 1: CART PAGE ── -->
+        <div class="case-card" style="margin-top: 24px">
+          <div class="case-header">
+            <span class="case-icon">🛒</span>
+            <div>
+              <div class="case-title">
+                Tính năng 1 – Cart Page / In-cart Editing
+              </div>
+              <div style="font-size: 13px; color: #64748b; margin-top: 2px">
+                Hiển thị option trong giỏ hàng + cho phép chỉnh sửa option trong
+                cart
+              </div>
+            </div>
+          </div>
+          <div class="case-body">
+            <p>
+              <strong>Mục đích snippet:</strong> Bọc vòng lặp
+              <code>for property in item.properties</code> bằng thẻ
+              <code>&lt;span&gt;</code> có attribute
+              <code>bss-po-line-properties</code> chứa <code>item.key</code>.
+              App dùng key này để:
+            </p>
+            <ul>
+              <li>
+                Biết chỗ render nút <strong>Edit</strong> cho từng line item
+              </li>
+              <li>
+                Lấy đúng <code>line_item_key</code> khi thực hiện update/edit
+                option trong cart
+              </li>
+            </ul>
+
+            <h4>Bước 1 – Bật tính năng</h4>
+            <p>
+              Vào <strong>Advanced Features → In-cart Editing</strong> → bật
+              toggle.
+            </p>
+
+            <h4>Bước 2 – Thêm snippet vào theme</h4>
+            <p>
+              Mở file <code>sections/main-cart-items.liquid</code>. Ctrl+F tìm
+              <code>{%- for property in item.properties -%}</code>, bọc toàn bộ
+              block <code>for...endfor</code> đó:
+            </p>
+
+            <pre><code>&lt;span bss-po-line-properties="{{ item.key }}"&gt;
+    {%- for property in item.properties -%}
+        ...Here is your theme's original code of theme
+    {%- endfor -%}
+&lt;/span&gt;</code></pre>
+
+            <table>
+              <tr>
+                <th>Trước</th>
+                <th>Sau</th>
+              </tr>
+              <tr>
+                <td style="font-family: monospace; font-size: 13px">
+                  {%- for property in item.properties -%}<br />...code gốc...<br />{%-
+                  endfor -%}
+                </td>
+                <td style="font-family: monospace; font-size: 13px">
+                  &lt;span bss-po-line-properties="{{ item.key }}"&gt;<br />&nbsp;&nbsp;{%-
+                  for property in item.properties -%}<br />&nbsp;&nbsp;&nbsp;&nbsp;...code
+                  gốc...<br />&nbsp;&nbsp;{%- endfor -%}<br />&lt;/span&gt;
+                </td>
+              </tr>
+            </table>
+
+            <div class="box warn">
+              <strong>⚠️ Lưu ý</strong>
+              Mỗi theme render cart theo cách khác nhau. Nếu không tìm thấy đúng
+              tag, dùng F12 trên cart page xem element đang render properties,
+              từ đó tìm file và vị trí đúng trong theme.
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TÍNH NĂNG 2: PRICE ADD-ON ── -->
+        <div class="case-card" style="margin-top: 20px">
+          <div class="case-header">
+            <span class="case-icon">💰</span>
+            <div>
+              <div class="case-title">
+                Tính năng 2 – Price Increased With Price Add-ons
+              </div>
+              <div style="font-size: 13px; color: #64748b; margin-top: 2px">
+                Cộng giá add-on vào giá hiển thị trên product page
+              </div>
+            </div>
+          </div>
+          <div class="case-body">
+            <p>
+              <strong>Bản chất:</strong> App cần biết
+              <strong>element HTML nào đang hiển thị giá</strong> để cộng thêm
+              price add-on vào đó. Có hai cách để làm điều này — dùng hàm
+              support trên Vahu hoặc thêm snippet vào theme. Với tính năng Price
+              Add-on, <strong>ưu tiên dùng hàm support</strong> vì tiện hơn và
+              không cần động vào code theme.
+            </p>
+
+            <h4>Bước 1 – Bật tính năng</h4>
+            <p>
+              Vào
+              <strong
+                >Advanced Features → Price Increased With Price Add-ons</strong
+              >
+              → bật toggle.
+            </p>
+
+            <h4>Bước 2 – Cài đặt (chọn một trong hai cách)</h4>
+
+            <div class="box tip">
+              <strong>✅ Cách 1 (ưu tiên) – Dùng hàm support trên Vahu</strong>
+              Thay vì vào sửa code theme, dùng
+              <code>bssFixSupportCustomOptionSetHTML</code> để gắn attribute vào
+              element giá bằng JavaScript. Cách này linh hoạt hơn và không cần
+              động vào theme.
+            </div>
+
+            <p>
+              Viết hàm sau trên Vahu,
+              <strong
+                >tự chỉnh lại <code>priceSelectors</code> và
+                <code>comparePriceSelectors</code></strong
+              >
+              cho đúng với element giá của theme đó (dùng F12 inspect để tìm
+              selector):
+            </p>
+
+            <pre><code>function bssFixSupportCustomOptionSetHTML(BSS_PO, optionSetHtml, idProductOnHomePage, appliedOptionSet) {
+    if (appliedOptionSet) {
+        const priceType = {
+            PRICE: 'price',
+            COMPARE_AT_PRICE: 'compare-at-price'
+        }
+
+        function installPriceIncrease(type = priceType.PRICE, selectors, productId, variantId) {
+            if (productId) {
+                const priceElements = document.querySelectorAll(selectors);
+                priceElements.forEach(price => {
+                    if (!price?.getAttribute("bss-po-product-id")) {
+                        price.setAttribute("bss-po-product-id", productId);
+                        price.setAttribute("bss-po-variant-id", variantId);
+                        if (type == priceType.PRICE) {
+                            price.setAttribute("bss-po-product-price", '');
+                        } else if (type == priceType.COMPARE_AT_PRICE) {
+                            price.setAttribute("bss-po-product-compare-price", '');
+                        }
+                    }
+                });
+            }
+        }
+
+        const productId = document.querySelector('form[action*="/cart/add"] input[name="product-id"]')?.value;
+
+        // ⚠️ Tự chỉnh selector cho đúng với theme của store này
+        const priceSelectors = '.product-single__meta span[data-product-price]';
+        const comparePriceSelectors = '.product-single__meta span[data-compare-price]';
+
+        installPriceIncrease(priceType.PRICE, priceSelectors, productId, productId);
+        installPriceIncrease(priceType.COMPARE_AT_PRICE, comparePriceSelectors, productId, productId);
+    }
+}</code></pre>
+
+            <div class="box note">
+              <strong>📌 Cách tìm selector đúng</strong>
+              Mở product page → F12 → inspect vào element đang hiển thị giá →
+              xem <code>class</code> hoặc <code>data-*</code> attribute của
+              element đó → dùng làm selector trong hàm trên.
+            </div>
+
+            <div class="box warn">
+              <strong>⚠️ Cách 2 (dự phòng) – Thêm snippet vào theme</strong>
+              Nếu không dùng được hàm support, có thể thêm snippet trực tiếp vào
+              <code>snippets/price.liquid</code>. Tìm từng tag giá và bọc lại
+              bằng <code>&lt;span&gt;</code> có attribute tương ứng:
+            </div>
+
+            <h4>Snippet 1 – Tag <code>{{ compare_at_price | money }}</code></h4>
+            <pre><code>&lt;span bss-po-product-id="{{ product.id }}"
+      bss-po-variant-price
+      bss-po-variant-id="{{ variant.id }}"
+      bss-po-product-compare-price&gt;{{ compare_at_price | money }}&lt;/span&gt;</code></pre>
+
+            <h4>
+              Snippet 2 – Tag
+              <code>{{ compare_at_price | money_with_currency }}</code>
+            </h4>
+            <pre><code>&lt;span bss-po-product-id="{{ product.id }}"
+      bss-po-variant-price
+      bss-po-variant-id="{{ variant.id }}"
+      bss-po-product-compare-price&gt;{{ compare_at_price | money_with_currency }}&lt;/span&gt;</code></pre>
+
+            <h4>Snippet 3 – Tag <code>{{ money_price }}</code></h4>
+            <pre><code>&lt;span bss-po-product-id="{{ product.id }}"
+      bss-po-variant-price
+      bss-po-variant-id="{{ variant.id }}"
+      bss-po-product-price&gt;{{ money_price }}&lt;/span&gt;</code></pre>
+
+            <p style="font-size: 13px; color: #64748b">
+              Nếu theme không có <code>snippets/price.liquid</code>: F12 →
+              inspect element giá → xem class → Ctrl+F tìm class đó trong code
+              theme → xác định file và tag đúng.
+            </p>
+          </div>
+        </div>
+
+        <!-- ── TÍNH NĂNG 3: FILE UPLOAD ── -->
+        <div class="case-card" style="margin-top: 20px">
+          <div class="case-header">
+            <span class="case-icon">📎</span>
+            <div>
+              <div class="case-title">Tính năng 3 – File Upload</div>
+              <div style="font-size: 13px; color: #64748b; margin-top: 2px">
+                Hiển thị file/ảnh đã upload trong giỏ hàng
+              </div>
+            </div>
+          </div>
+          <div class="case-body">
+            <p>
+              <strong>Mục đích snippet:</strong> App không thể tự render
+              file/ảnh trong cart vì cần Liquid (server-side) để kiểm tra loại
+              file và tạo link/img tag phù hợp. Snippet này thay thế block
+              render properties trong cart để hiển thị ảnh thumbnail hoặc link
+              file.
+            </p>
+
+            <h4>Bước 1 – Bật tính năng</h4>
+            <p>
+              Vào <strong>Advanced Features → File Upload</strong> → bật toggle.
+            </p>
+
+            <h4>Bước 2 – Thêm snippet vào theme</h4>
+            <p>
+              Mở <strong>cả 3 file sau</strong> và paste
+              <strong>cùng một snippet</strong> vào mỗi file:
+            </p>
+            <ul>
+              <li><code>sections/main-cart-items.liquid</code></li>
+              <li><code>snippets/cart-drawer.liquid</code></li>
+              <li><code>sections/cart-notification-product.liquid</code></li>
+            </ul>
+            <p>
+              Trong mỗi file, Ctrl+F tìm tag
+              <code>{%- if property.last contains '/uploads/' -%}</code>, thay
+              thế toàn bộ block đó bằng:
+            </p>
+
+            <pre><code>{%- if property.last contains '/uploads/' -%}
+  &lt;a href="{{ property.last }}" class="cart__file-option" target="_blank"&gt;
+    {{ property.last | split: '/' | last }}
+  &lt;/a&gt;
+{%- endif -%}
+
+{% comment %}BSS PO: Check if option is file upload{% endcomment %}
+{%- if property.last contains '/po/' or property.last contains '/cdn.shopify.com' -%}
+  {%- assign poFileLinks = property.last -%}
+  {%- assign poFiles = poFileLinks | split: ', ' -%}
+  {%- assign image_types = 'jpg,jpeg,webp,gif,png,apng,avif,svg,bmp,ico,tiff' | split: ',' -%}
+
+  &lt;div aria-label='BSS po list file' style="display: flex; gap: 4px; flex-direction: column;"&gt;
+    {%- for item in poFiles -%}
+      &lt;a target="_blank" href="{{ item }}"&gt;
+        {%- assign isImage = false -%}
+        {%- for type in image_types -%}
+          {%- if item contains type -%}
+            {%- assign isImage = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if isImage == true -%}
+          &lt;span style="display:block" class="bss-po-cart-file"&gt;
+            &lt;img src="{{ item }}" style="max-width: 50px; height: auto;"/&gt;
+          &lt;/span&gt;
+        {%- else -%}
+          {%- assign file_name = item | split: '/' | last | split: '.' | first -%}
+          &lt;span class="bss-po-cart-file"&gt;{{ file_name }}&lt;/span&gt;
+        {%- endif -%}
+      &lt;/a&gt;
+    {%- endfor -%}
+  &lt;/div&gt;
+{% comment %}BSS PO: End check if option is file upload{% endcomment %}
+{%- else -%}
+  {{ property.last }}
+{%- endif -%}</code></pre>
+          </div>
+        </div>
+
+        <!-- ── TÍNH NĂNG 4: FEATURED PRODUCTS ── -->
+        <div class="case-card" style="margin-top: 20px">
+          <div class="case-header">
+            <span class="case-icon">🏠</span>
+            <div>
+              <div class="case-title">Tính năng 4 – Featured Products</div>
+              <div style="font-size: 13px; color: #64748b; margin-top: 2px">
+                Hiển thị option trên Home Page / Collection Page
+              </div>
+            </div>
+          </div>
+          <div class="case-body">
+            <p>
+              <strong>Mục đích snippet:</strong> Gắn attribute
+              <code>bss-po-featured-product-key</code> và
+              <code>bss-po-featured-product-variant-id-first-load</code> vào
+              element product card. App dùng để nhận diện sản phẩm và render
+              option set tương ứng lên card đó, đồng thời biết variant ID mặc
+              định khi load lần đầu.
+            </p>
+
+            <h4>Bước 1 – Bật tính năng</h4>
+            <p>
+              Vào <strong>Advanced Features → Featured Products</strong> → bật
+              toggle.
+            </p>
+
+            <h4>Bước 2 – Thêm snippet vào theme</h4>
+            <p>
+              Mở file <code>sections/featured-product.liquid</code>. Ctrl+F tìm
+              <code>class="featured-product</code>, thêm hai attribute vào ngay
+              trước <code>class=</code>:
+            </p>
+
+            <pre><code>&lt;!-- Trước --&gt;
+&lt;div class="featured-product"&gt;
+
+&lt;!-- Sau --&gt;
+&lt;div bss-po-featured-product-key="{{ product.id }}"
+     bss-po-featured-product-variant-id-first-load="{{ product.selected_or_first_available_variant.id }}"
+     class="featured-product"&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- ── TÍNH NĂNG 5: CONFIRMATION & PACKING SLIP ── -->
+        <div class="case-card" style="margin-top: 20px">
+          <div class="case-header">
+            <span class="case-icon">📧</span>
+            <div>
+              <div class="case-title">
+                Tính năng 5 – Order Confirmation Email & Packing Slips
+              </div>
+              <div style="font-size: 13px; color: #64748b; margin-top: 2px">
+                Hiển thị option trong email xác nhận đơn hàng và phiếu đóng gói
+              </div>
+            </div>
+          </div>
+          <div class="case-body">
+            <div class="box note">
+              <strong>📌 Tính năng này khác các tính năng trên</strong>
+              Không vào Advanced Features, không thêm snippet vào theme. Thay
+              vào đó, truy cập trực tiếp vào
+              <strong>Shopify Email Template</strong> và
+              <strong>Packing Slip Template</strong> để thêm code — app sẽ
+              render option trong email và phiếu đóng gói.
+            </div>
+
+            <h4>1. Hiển thị option trong Order Confirmation Email</h4>
+            <ul>
+              <li>
+                Bước 1: Vào
+                <strong
+                  >Shopify Admin → Settings → Notifications → Customer
+                  notifications → Order confirmation</strong
+                >
+              </li>
+              <li>
+                Bước 2: Trong phần HTML Body, tìm
+                <code>line.variant.title</code>, paste đoạn code sau vào ngay
+                <strong>sau</strong> tag <code>{% endif %}</code> gần đó:
+              </li>
+            </ul>
+            <pre><code>&lt;div class='bss-po-email'&gt;
+    {% for property in line.properties %}
+        {%- unless property.first contains '__bss_po_' -%}
+            {% assign bss_p_first = property.first | replace_first: '_', '' %}
+            {{ bss_p_first }}: {{ property.last }}&lt;br/&gt;
+        {% endunless %}
+    {% endfor %}
+&lt;/div&gt;</code></pre>
+            <ul>
+              <li>Bước 3: Save template và đợi 30 giây.</li>
+            </ul>
+
+            <h4 style="margin-top: 20px">
+              2. Hiển thị option trong Packing Slips
+            </h4>
+            <ul>
+              <li>
+                Bước 1: Vào
+                <strong
+                  >Shopify Admin → Settings → Shipping and delivery → Edit
+                  packing slip template</strong
+                >
+              </li>
+              <li>
+                Bước 2: Trong phần HTML Body, tìm
+                <code>{{ line_item.sku }}</code>, paste đoạn code sau vào ngay
+                <strong>sau</strong> tag <code>&lt;/p&gt;</code> gần đó:
+              </li>
+            </ul>
+            <pre><code>&lt;div class='bss-po-packing-slip'&gt;
+    {% for property in line_item.properties %}
+        {%- unless property.first contains '__bss_po_' -%}
+            {% assign bss_p_first = property.first | replace_first: '_', '' %}
+            {{ bss_p_first }}: {{ property.last }}&lt;br/&gt;
+        {% endunless %}
+    {% endfor %}
+&lt;/div&gt;</code></pre>
+            <ul>
+              <li>Bước 3: Save template và đợi 30 giây.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- CHECKLIST -->
+        <h3 style="margin-top: 28px">Checklist Sau Khi Cài</h3>
+        <table>
+          <tr>
+            <th>Tính năng</th>
+            <th>Cách kiểm tra</th>
+          </tr>
+          <tr>
+            <td>Cart Page / In-cart Editing</td>
+            <td>
+              Vào cart → nút Edit xuất hiện → click Edit → modal mở đúng →
+              update xong option có lưu không
+            </td>
+          </tr>
+          <tr>
+            <td>Price Add-on</td>
+            <td>
+              Chọn option có price add-on → giá sản phẩm có cộng thêm không →
+              đổi variant → giá có giữ không
+            </td>
+          </tr>
+          <tr>
+            <td>File Upload</td>
+            <td>
+              Upload file qua option → ATC → vào cart → file/ảnh hiển thị với
+              link/thumbnail đúng không
+            </td>
+          </tr>
+          <tr>
+            <td>Featured Products</td>
+            <td>
+              Vào home page → option set có render trên product card không →
+              chọn option → ATC → cart có properties không
+            </td>
+          </tr>
+          <tr>
+            <td>Confirmation Email</td>
+            <td>
+              Đặt đơn thử → xem email xác nhận → option có hiển thị trong email
+              không
+            </td>
+          </tr>
+          <tr>
+            <td>Packing Slip</td>
+            <td>
+              Vào Shopify Admin → Orders → in Packing Slip → option có hiển thị
+              không
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="footer">
+        BSS Commerce · BSS Product Options (OPTIS) · Training Guide · Internal
+        Use Only
+      </div>
+    </div>
+  </body>
+</html>
