@@ -171,12 +171,31 @@
         <a href="index.html">Trang chủ</a>
         <a href="option.html" class="active">Training OPTIS</a>
         <a href="swatch.html">Training Swatch</a>
+        <a
+          href="https://github.com/lenghia0183"
+          target="_blank"
+          rel="noopener"
+          style="display: flex; align-items: center; gap: 5px"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"
+            />
+          </svg>
+          lenghia0183
+        </a>
       </div>
     </nav>
     <div class="cover">
       <div class="cover-logo">
         <img data-img-config="optis_logo" alt="OPTIS Logo" />
-        <span class="cover-logo-name">BSS Product Options · OPTIS</span>
+        <span class="cover-logo-name">BSS OPTIS Product Options</span>
       </div>
       <div class="cover-badge">Internal Training Document</div>
       <h1>BSS <span>Product Options</span><br />Developer Training Guide</h1>
@@ -184,8 +203,10 @@
         Tài liệu onboarding cho developer mới – App OPTIS trên Shopify
       </p>
       <div class="cover-meta">
-        <div class="cover-meta-item"><strong>Team</strong>BSS Commerce</div>
-        <div class="cover-meta-item"><strong>Author</strong>NghiaLC</div>
+        <div class="cover-meta-item"><strong>Team</strong>E</div>
+        <div class="cover-meta-item">
+          <strong>Author</strong>NghiaLC and LienNTT
+        </div>
         <div class="cover-meta-item"><strong>Cập nhật</strong>2026</div>
         <div class="cover-meta-item">
           <strong>Đối tượng</strong>Developer mới
@@ -197,7 +218,9 @@
       <div class="toc">
         <h2>📋 Mục Lục</h2>
         <ol>
-          <li><a href="#s1">Tổng Quan – App OPTIS là gì?</a></li>
+          <li>
+            <a href="#s1">Tổng Quan – App OPTIS Product Options là gì?</a>
+          </li>
           <li><a href="#s2">Các Tính Năng Của App</a></li>
           <li><a href="#s3">Cơ Sở Dữ Liệu (Database)</a></li>
           <li><a href="#s4">Logic Đặt Hàng</a></li>
@@ -217,13 +240,23 @@
           </li>
           <li><a href="#s9">Các Bug Hay Gặp – Nguyên Nhân và Cách Fix</a></li>
           <li><a href="#s10">Hướng Dẫn Installation</a></li>
+          <li>
+            <a href="#s11">Theme Config – Cấu Trúc và Cách Dùng</a>
+            <ol class="sub">
+              <li><a href="#s11-structure">Cấu trúc tổng quan</a></li>
+              <li><a href="#s11-product">Nhóm product</a></li>
+              <li><a href="#s11-cart">Nhóm cart_page</a></li>
+              <li><a href="#s11-minicart">Nhóm mini_cart</a></li>
+              <li><a href="#s11-livepreview">Nhóm live_preview</a></li>
+            </ol>
+          </li>
         </ol>
       </div>
 
       <!-- ===== SECTION 1 ===== -->
       <div class="section" id="s1">
         <h2 class="section-title">
-          <span class="num">1</span>Tổng Quan – App OPTIS là gì?
+          <span class="num">1</span>Tổng Quan – App OPTIS Product Options là gì?
         </h2>
 
         <img
@@ -2267,6 +2300,391 @@ function bssFixSupportGetSectionMiniCart() {
           </tr>
         </table>
       </div>
+
+      <!-- ===== SECTION 11 ===== -->
+      <div class="section" id="s11">
+        <h2 class="section-title">
+          <span class="num">11</span>Theme Config – Cấu Trúc và Cách Dùng
+        </h2>
+
+        <h3 id="s11-structure">Theme Config là gì?</h3>
+        <p>
+          <strong>Theme Config</strong> là một object JavaScript trong
+          <code>theme-schema.js</code> mô tả cấu trúc HTML của từng Shopify
+          theme — element nào là variant picker, input nào chứa variant ID,
+          element nào là giá, nút nào là ATC...
+        </p>
+        <p>
+          App dùng Theme Config để biết: <em>ẩn cái gì</em>,
+          <em>đọc giá trị từ đâu</em>,
+          <em>cập nhật phần tử nào khi đổi variant</em>. Không có Theme Config
+          đúng = app không hoạt động được.
+        </p>
+
+        <div class="box tip">
+          <strong>💡 Thứ tự ưu tiên tra cứu</strong>
+          App tra cứu theo: <code>theme_store_id</code> khớp →
+          <code>name</code> khớp → fallback (<code>id: 9999</code>) nếu không
+          match được. Mọi field đều có thể là <strong>string</strong> hoặc
+          <strong>mảng string</strong> — khi là mảng, app thử từng selector theo
+          thứ tự và dùng cái đầu tiên match được trong DOM.
+        </div>
+
+        <p>Cấu trúc tổng quan:</p>
+        <pre><code>{
+    name: 'ThemeName',           // tên theme hoặc mảng tên
+    theme_store_id: 887,         // ID theme store hoặc mảng ID
+    product: { ... },            // selectors cho product page
+    cart_page: { ... },          // selectors cho cart page
+    mini_cart: { ... },          // selectors cho mini cart / drawer
+    live_preview: { ... },       // selectors cho live preview ảnh
+}</code></pre>
+
+        <!-- PRODUCT -->
+        <h3 id="s11-product">Nhóm <code>product</code> — Product Page</h3>
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Mô tả</th>
+            <th>Cách xác định (F12)</th>
+            <th>Ví dụ</th>
+          </tr>
+          <tr>
+            <td><code>title</code></td>
+            <td>Element tên sản phẩm.</td>
+            <td>Inspect tên sản phẩm trên trang</td>
+            <td><code>'.product__title'</code></td>
+          </tr>
+          <tr>
+            <td><code>themeVariantPicker</code></td>
+            <td>
+              Container chứa toàn bộ variant selector gốc của theme. App
+              <strong>ẩn</strong> element này để thay bằng option set.
+            </td>
+            <td>
+              Inspect vùng chọn size/màu → tìm element bao ngoài cùng (thường là
+              custom element)
+            </td>
+            <td>
+              <code
+                >['variant-picker', 'variant-selects', 'variant-radios']</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td><code>variantSelector</code></td>
+            <td>
+              Selector đọc variant đang được chọn từ theme gốc. App dùng để sync
+              giá trị khi cần.
+            </td>
+            <td>
+              Inspect element đang giữ giá trị variant hiện tại (radio checked,
+              option selected...)
+            </td>
+            <td>
+              <code
+                >['variant-radios input:checked', 'variant-selects
+                option:checked']</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td><code>productId</code></td>
+            <td>
+              Input hidden chứa product ID. App cần để gọi API lấy thông tin sản
+              phẩm.
+            </td>
+            <td>
+              Tìm <code>&lt;input name="product-id"&gt;</code> trong product
+              form
+            </td>
+            <td>
+              <code>'form[action="/cart/add"] input[name="product-id"]'</code>
+            </td>
+          </tr>
+          <tr>
+            <td><code>variantId</code></td>
+            <td>
+              Input hidden chứa variant ID. App observe bằng MutationObserver để
+              detect variant thay đổi.
+              <em
+                >Hầu hết theme dùng <code>input[name="id"]</code> — ít khi cần
+                thay đổi.</em
+              >
+            </td>
+            <td>Tìm <code>&lt;input name="id"&gt;</code> trong product form</td>
+            <td><code>'form[action="/cart/add"] input[name="id"]'</code></td>
+          </tr>
+          <tr>
+            <td><code>price</code></td>
+            <td>Element giá bán.</td>
+            <td>Inspect element hiển thị giá tiền</td>
+            <td>
+              <code
+                >'.product .price .price__regular .price-item--regular'</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td><code>compareAtPrice</code></td>
+            <td>
+              Element giá gốc bị gạch. Chỉ xuất hiện khi sản phẩm đang sale.
+            </td>
+            <td>Inspect giá bị gạch (cần có sản phẩm đang sale)</td>
+            <td>
+              <code>'.product .price .price__sale s.price-item--regular'</code>
+            </td>
+          </tr>
+          <tr>
+            <td><code>submitButton</code></td>
+            <td>
+              Nút Add to Cart. App đọc <code>disabled</code> state để xác định
+              sold out.
+            </td>
+            <td>Inspect nút ATC</td>
+            <td><code>"button[type='submit'][name='add']"</code></td>
+          </tr>
+          <tr>
+            <td><code>buyItNow</code></td>
+            <td>
+              Các nút thanh toán nhanh (Shop Pay, Google Pay, Apple Pay,
+              PayPal...). App ẩn/xử lý khi có option bắt buộc chưa chọn.
+            </td>
+            <td>Inspect khu vực bên dưới nút ATC</td>
+            <td>
+              <code>"form[action*='/cart/add'] shop-pay-wallet-button"</code>
+            </td>
+          </tr>
+          <tr>
+            <td><code>featured_product_wrapper</code></td>
+            <td>
+              Wrapper của featured product section (nếu theme có block sản phẩm
+              nổi bật trên trang khác).
+            </td>
+            <td>Inspect section featured product</td>
+            <td>
+              <code
+                >['.featured-product',
+                '[id*="featured_product"].shopify-section']</code
+              >
+            </td>
+          </tr>
+        </table>
+
+        <!-- CART PAGE -->
+        <h3 id="s11-cart">Nhóm <code>cart_page</code> — Cart Page</h3>
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Mô tả</th>
+            <th>Cách xác định (F12)</th>
+            <th>Ví dụ</th>
+          </tr>
+          <tr>
+            <td><code>quantityInput</code></td>
+            <td>Input số lượng từng line item trong cart.</td>
+            <td>Inspect ô số lượng trong cart table</td>
+            <td><code>'form[action="/cart"] input[name="updates[]"]'</code></td>
+          </tr>
+          <tr>
+            <td><code>quantityChangeButtons</code></td>
+            <td>
+              Nút tăng/giảm số lượng (+ / −). App gắn event để cập nhật giá khi
+              số lượng thay đổi.
+            </td>
+            <td>Inspect nút + hoặc − cạnh ô số lượng</td>
+            <td><code>'.quantity__button.no-js-hidden'</code></td>
+          </tr>
+          <tr>
+            <td><code>checkoutButton</code></td>
+            <td>Nút Checkout.</td>
+            <td>Inspect nút "Proceed to Checkout"</td>
+            <td>
+              <code
+                >'form[action*="/cart"] [type="submit"][name="checkout"]'</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td><code>removeButtons</code></td>
+            <td>Nút xóa item khỏi cart.</td>
+            <td>Inspect nút "Remove" hoặc icon xóa</td>
+            <td><code>'cart-remove-button[id^="Remove"]'</code></td>
+          </tr>
+          <tr>
+            <td><code>updateCartButton</code></td>
+            <td>Nút "Update Cart" (một số theme có).</td>
+            <td>Inspect nút update nếu theme có</td>
+            <td><code>'.cart__actions input[name="update"]'</code></td>
+          </tr>
+          <tr>
+            <td><code>priceElements</code></td>
+            <td>
+              Các element hiển thị giá trong cart. App dùng để cập nhật giá khi
+              có add-on.
+            </td>
+            <td>Inspect vùng giá của từng line item</td>
+            <td><code>'[data-cart-item-key]'</code></td>
+          </tr>
+          <tr>
+            <td><code>cartSubtotalPriceElement</code></td>
+            <td>
+              Element hiển thị tổng tiền trong cart. App cập nhật sau khi tính
+              add-on.
+            </td>
+            <td>Inspect tổng tiền ở cuối cart</td>
+            <td><code>'span[data-cart-subtotal]'</code></td>
+          </tr>
+        </table>
+
+        <!-- MINI CART -->
+        <h3 id="s11-minicart">
+          Nhóm <code>mini_cart</code> — Mini Cart / Drawer
+        </h3>
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Mô tả</th>
+            <th>Cách xác định (F12)</th>
+            <th>Ví dụ</th>
+          </tr>
+          <tr>
+            <td><code>miniCartDrawerBox</code></td>
+            <td>
+              Container chính của cart drawer/popup. App observe element này để
+              biết khi drawer mở.
+            </td>
+            <td>Inspect cái drawer kéo ra từ phải khi click icon cart</td>
+            <td><code>'.drawer'</code></td>
+          </tr>
+          <tr>
+            <td><code>miniCartIcon</code></td>
+            <td>
+              Icon cart trên header. App gắn click event để trigger mở drawer.
+            </td>
+            <td>Inspect icon giỏ hàng trên navbar</td>
+            <td><code>'.header__icon--cart'</code></td>
+          </tr>
+          <tr>
+            <td><code>miniCartNotificationBox</code></td>
+            <td>
+              Notification box hiện ra sau khi add to cart (một số theme).
+            </td>
+            <td>Inspect popup "Item added to cart"</td>
+            <td><code>'.cart-notification'</code></td>
+          </tr>
+        </table>
+
+        <!-- LIVE PREVIEW -->
+        <h3 id="s11-livepreview">
+          Nhóm <code>live_preview</code> — Live Preview Ảnh
+        </h3>
+        <p>Dùng để cập nhật ảnh sản phẩm khi user chọn option có upload ảnh.</p>
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Mô tả</th>
+            <th>Cách xác định (F12)</th>
+            <th>Ví dụ</th>
+          </tr>
+          <tr>
+            <td><code>product.wrapper</code></td>
+            <td>
+              Wrapper từng media item trong gallery sản phẩm. App inject preview
+              ảnh vào đây.
+            </td>
+            <td>
+              Inspect gallery ảnh → tìm <code>li</code> hoặc
+              <code>div</code> bọc từng ảnh
+            </td>
+            <td>
+              <code
+                >'media-gallery .product-media-container .product-media'</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td><code>cart.main.image</code></td>
+            <td>
+              Element <code>&lt;img&gt;</code> trong cart page. App cập nhật
+              <code>src</code> thành ảnh option đã upload.
+            </td>
+            <td>Inspect ảnh sản phẩm trong cart table</td>
+            <td>
+              <code
+                >'cart-items .cart-item__image-container
+                img.cart-item__image'</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td><code>cart.main.observerSelector</code></td>
+            <td>Element app observe để biết khi cart page re-render xong.</td>
+            <td>Element bao toàn bộ danh sách cart items</td>
+            <td><code>'cart-items-component, .cart__items'</code></td>
+          </tr>
+          <tr>
+            <td><code>cart.drawer.image</code></td>
+            <td>Element <code>&lt;img&gt;</code> trong cart drawer.</td>
+            <td>Inspect ảnh trong cart drawer</td>
+            <td><code>'cart-drawer .cart-items img.cart-item__image'</code></td>
+          </tr>
+          <tr>
+            <td><code>cart.drawer.observerSelector</code></td>
+            <td>Element app observe để biết khi cart drawer re-render xong.</td>
+            <td>Container dialog của cart drawer</td>
+            <td><code>'cart-drawer-component .cart-drawer__dialog'</code></td>
+          </tr>
+        </table>
+
+        <!-- FULL EXAMPLE -->
+        <h3>Ví dụ đầy đủ một Theme Config</h3>
+        <p>
+          Viết hàm sau trên Vahu để khai báo config cho theme chưa có sẵn (xem
+          thêm
+          <a href="#s8-price" style="color: #0284c7"
+            >Phần 8 – Cài Price Increase</a
+          >):
+        </p>
+        <pre><code>function bssFixSupportThemeConfig(BSS_PO, theme, themeConfig, PO_THEME_NAME_MAP, PO_THEME_STORE_ID_MAP) {
+    try {
+        const newThemeConfig = {
+            name: 'Horizon',
+            theme_store_id: 2481,
+            product: {
+                themeVariantPicker: ['variant-picker', 'variant-selects'],
+                variantSelector: 'variant-radios input:checked',
+                productId: 'form[action="/cart/add"] input[name="product-id"]',
+                variantId: 'form[action="/cart/add"] input[name="id"]',
+                price: 'product-price span[data-aid="regular-price"]',
+                compareAtPrice: 'product-price span[data-aid="compare-at-price"]',
+                submitButton: "button[type='submit'][name='add']",
+            },
+            cart_page: {
+                quantityInput: 'form[action="/cart"] input[name="updates[]"]',
+                checkoutButton: 'form[action*="/cart"] [type="submit"][name="checkout"]',
+                removeButtons: 'cart-remove-button[id^="Remove"]',
+                cartSubtotalPriceElement: 'span[data-cart-subtotal]',
+            },
+            mini_cart: {
+                miniCartDrawerBox: '.drawer',
+                miniCartIcon: '.header__icon--cart',
+            },
+        }
+        return newThemeConfig;
+    } catch (error) {
+        console.log('[ERROR - bssFixSupportThemeConfig]: ', error);
+    }
+    return themeConfig;
+}</code></pre>
+
+        <div class="box note">
+          <strong>📌 Lấy theme_store_id ở đâu?</strong>
+          Vào Shopify Admin → Online Store → Themes → nhấn vào tên theme đang
+          active → xem URL trên trình duyệt, số ID ở cuối URL chính là
+          <code>theme_store_id</code>.
+        </div>
+      </div>
     </div>
     <footer>
       <p>
@@ -2287,6 +2705,20 @@ function bssFixSupportGetSectionMiniCart() {
       <div>
         <a href="index.html">Trang chủ</a>
         <a href="swatch.html">Training Swatch</a>
+        <a href="https://github.com/lenghia0183" target="_blank" rel="noopener">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            style="vertical-align: middle; margin-right: 4px; margin-top: -2px"
+          >
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"
+            /></svg
+          >lenghia0183
+        </a>
       </div>
     </footer>
     <script src="images.config.js"></script>
