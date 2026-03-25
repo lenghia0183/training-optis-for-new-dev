@@ -30,25 +30,21 @@ const IMG_CONFIG = {
 
   /* ── index.html – Shopify Section ── */
   shopify_ecommerce:
-    "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&auto=format&fit=crop&q=80",
+    "https://cdn.shopify.com/b/shopify-brochure2-assets/49bbf17e5d43dcd0bd09ad39724ae7ac.png",
 
   shopify_laptop:
-    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&auto=format&fit=crop&q=80",
+    "https://www.stylefactoryproductions.com/wp-content/uploads/2022/11/what-is-shopify-video.png",
 
-  /* ── index.html – App Cards ── */
-  app_product_options:
-    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&auto=format&fit=crop&q=80",
+  // /* ── index.html – App Cards ── */
+  // app_product_options: "",
 
-  app_color_swatch:
-    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&auto=format&fit=crop&q=80",
+  // app_color_swatch: "",
 
-  /* ── option.html ── */
-  option_hero:
-    "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=900&auto=format&fit=crop&q=80",
+  // /* ── option.html ── */
+  // option_hero: "",
 
-  /* ── swatch.html ── */
-  swatch_hero:
-    "https://images.unsplash.com/photo-1515405295579-ba7b45403062?w=900&auto=format&fit=crop&q=80",
+  // /* ── swatch.html ── */
+  // swatch_hero: "",
 };
 
 /* ── Auto-inject: tìm tất cả [data-img-config] và gán src ── */
@@ -58,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (IMG_CONFIG[key]) {
       el.src = IMG_CONFIG[key];
     } else {
+      el.remove();
       console.warn(`[images.config.js] Key không tồn tại: "${key}"`);
     }
   });
