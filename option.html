@@ -1831,14 +1831,52 @@ function bssFixSupportGetSectionMiniCart() {
               → bật toggle.
             </p>
 
-            <h4>Bước 2 – Cài đặt (chọn một trong hai cách)</h4>
+            <h4>Bước 2 – Cài đặt (chọn một trong ba cách)</h4>
 
             <div class="box tip">
-              <strong>✅ Cách 1 (ưu tiên) – Dùng hàm support trên Vahu</strong>
-              Thay vì vào sửa code theme, dùng
-              <code>bssFixSupportCustomOptionSetHTML</code> để gắn attribute vào
-              element giá bằng JavaScript. Cách này linh hoạt hơn và không cần
-              động vào theme.
+              <strong
+                >✅ Cách 1 (ưu tiên) – Dùng
+                <code>bssFixSupportThemeConfig</code></strong
+              >
+              App hỗ trợ sẵn config cho nhiều theme phổ biến. Nếu theme của
+              store chưa có trong danh sách, dùng hàm này để khai báo thêm — app
+              sẽ tự gắn attribute vào đúng element giá mà không cần code thêm.
+            </div>
+
+            <p>
+              Viết hàm sau trên Vahu,
+              <strong
+                >điền đúng <code>name</code>, <code>theme_store_id</code> và các
+                selector giá</strong
+              >
+              của theme đó (dùng F12 inspect để tìm selector):
+            </p>
+
+            <pre><code>function bssFixSupportThemeConfig(BSS_PO, theme, themeConfig, PO_THEME_NAME_MAP, PO_THEME_STORE_ID_MAP) {
+    try {
+        const newThemeConfig = {
+            name: 'Horizon',         
+            theme_store_id: 2481,    
+            product: {
+                price: 'product-price span[data-aid="regular-price"]',
+                compareAtPrice: 'product-price span[data-aid="compare-at-price"]',
+            },
+        }
+        return newThemeConfig;
+    } catch (error) {
+        console.log('[ERROR - bssFixSupportThemeConfig]: ', error);
+    }
+    return themeConfig;
+}</code></pre>
+
+            <div class="box tip">
+              <strong
+                >✅ Cách 2 – Dùng
+                <code>bssFixSupportCustomOptionSetHTML</code></strong
+              >
+              Nếu themeConfig không đủ linh hoạt (ví dụ: product ID cần lấy theo
+              cách đặc biệt), dùng hàm này để gắn attribute vào element giá thủ
+              công bằng JavaScript.
             </div>
 
             <p>
@@ -1894,7 +1932,7 @@ function bssFixSupportGetSectionMiniCart() {
             </div>
 
             <div class="box warn">
-              <strong>⚠️ Cách 2 (dự phòng) – Thêm snippet vào theme</strong>
+              <strong>⚠️ Cách 3 (dự phòng) – Thêm snippet vào theme</strong>
               Nếu không dùng được hàm support, có thể thêm snippet trực tiếp vào
               <code>snippets/price.liquid</code>. Tìm từng tag giá và bọc lại
               bằng <code>&lt;span&gt;</code> có attribute tương ứng:
@@ -2078,6 +2116,17 @@ function bssFixSupportGetSectionMiniCart() {
             </div>
 
             <h4>1. Hiển thị option trong Order Confirmation Email</h4>
+            <p>
+              Cần thêm code vào <strong>3 vị trí</strong> trong template. Chi
+              tiết xem tại:
+              <a
+                href="https://docs.google.com/document/d/1OhO2yJ7vqk8gzZZabOsuiQSYZEYk4_3NFgEm_jCrtYA/edit?tab=t.0"
+                target="_blank"
+                style="color: #0284c7"
+                >📄 Hướng dẫn chi tiết (Google Docs)</a
+              >
+            </p>
+
             <ul>
               <li>
                 Bước 1: Vào
@@ -2086,22 +2135,54 @@ function bssFixSupportGetSectionMiniCart() {
                   notifications → Order confirmation</strong
                 >
               </li>
-              <li>
-                Bước 2: Trong phần HTML Body, tìm
-                <code>line.variant.title</code>, paste đoạn code sau vào ngay
-                <strong>sau</strong> tag <code>{% endif %}</code> gần đó:
-              </li>
             </ul>
+
+            <p>
+              <strong>Vị trí 1:</strong> Tìm
+              <code>{{ line.variant.title }}</code>. Nếu không tìm thấy thì tìm
+              thử <code>{{ line_item.variant.title }}</code>. Thêm đoạn code sau
+              vào dòng dưới <code>{% endif %}</code>:
+            </p>
             <pre><code>&lt;div class='bss-po-email'&gt;
-    {% for property in line.properties %}
-        {%- unless property.first contains '__bss_po_' -%}
-            {% assign bss_p_first = property.first | replace_first: '_', '' %}
-            {{ bss_p_first }}: {{ property.last }}&lt;br/&gt;
-        {% endunless %}
-    {% endfor %}
+	{% for property in line.properties %}
+		{%- unless property.first contains '__bss_po_' -%}
+		  {% assign bss_p_first = property.first | replace_first: '_', '' %}
+		  {{ bss_p_first }}: {{ property.last }}&lt;br/&gt;
+	  {% endunless %}
+	{% endfor %}
 &lt;/div&gt;</code></pre>
+
+            <p>
+              <strong>Vị trí 2:</strong> Tìm
+              <code>{{ component_display }}</code>, thêm đoạn code sau vào dòng
+              dưới. sau thẻ <code>&lt;br&gt;</code>
+              <em>(Nếu không tìm thấy thì bỏ qua.)</em>
+            </p>
+            <pre><code>&lt;div class='bss-po-email'&gt;
+	{% for property in component.properties %}
+		{%- unless property.first contains '__bss_po_' -%}
+		  {% assign bss_p_first = property.first | replace_first: '_', '' %}
+		  {{ bss_p_first }}: {{ property.last }}&lt;br/&gt;
+	  {% endunless %}
+	{% endfor %}
+&lt;/div&gt;</code></pre>
+
+            <p>
+              <strong>Vị trí 3:</strong> Tìm dòng có chứa
+              <code>{{ component.quantity }}</code>, thêm đoạn code sau vào dòng
+              dưới thẻ <code>&lt;br&gt;</code>:
+            </p>
+            <pre><code>&lt;div class='bss-po-email'&gt;
+	{% for property in component.properties %}
+		{%- unless property.first contains '__bss_po_' -%}
+		  {% assign bss_p_first = property.first | replace_first: '_', '' %}
+		  {{ bss_p_first }}: {{ property.last }}&lt;br/&gt;
+	  {% endunless %}
+	{% endfor %}
+&lt;/div&gt;</code></pre>
+
             <ul>
-              <li>Bước 3: Save template và đợi 30 giây.</li>
+              <li>Bước cuối: Save template và đợi 30 giây.</li>
             </ul>
 
             <h4 style="margin-top: 20px">
