@@ -36,9 +36,11 @@ const IMG_CONFIG = {
     "https://www.stylefactoryproductions.com/wp-content/uploads/2022/11/what-is-shopify-video.png",
 
   // /* ── index.html – App Cards ── */
-  // app_product_options: "",
+  app_product_options:
+    "https://cdn.shopify.com/app-store/listing_images/5e7100d6dd8a25eae7b75d50f0d897df/desktop_screenshot/CNm53_3NjpADEAE=.png?height=360&width=640",
 
-  // app_color_swatch: "",
+  app_color_swatch:
+    "https://cdn.shopify.com/app-store/listing_images/4639b295c8340737b2c240f10481cb85/promotional_image/CPiSnIakqJIDEAE=.png?height=720&width=1280",
 
   // /* ── option.html ── */
   // option_hero: "",
