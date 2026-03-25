@@ -20,9 +20,9 @@ nav {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(12, 42, 74, 0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
   padding: 0 48px;
   height: 58px;
   display: flex;
@@ -30,13 +30,14 @@ nav {
   justify-content: space-between;
 }
 .nav-logo {
-  font-weight: 800;
-  font-size: 15px;
-  color: white;
   display: flex;
   align-items: center;
-  gap: 10px;
   text-decoration: none;
+}
+.nav-logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
 }
 .nav-logo-mark {
   width: 28px;
@@ -55,14 +56,38 @@ nav {
   gap: 28px;
 }
 .nav-links a {
-  color: rgba(255, 255, 255, 0.55);
+  color: #475569;
   font-size: 13px;
+  font-weight: 500;
   text-decoration: none;
   transition: color 0.2s;
 }
 .nav-links a:hover,
 .nav-links a.active {
-  color: white;
+  color: #0284c7;
+}
+
+/* ── COVER LOGO ── */
+.cover-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.cover-logo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: white;
+  padding: 4px;
+  object-fit: contain;
+}
+.cover-logo-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 /* ── COVER ── */

@@ -53,9 +53,9 @@
         left: 0;
         right: 0;
         z-index: 100;
-        background: rgba(12, 42, 74, 0.95);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--border-dark);
+        background: #ffffff;
+        border-bottom: 1px solid #e2e8f0;
+        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
         padding: 0 48px;
         height: 58px;
         display: flex;
@@ -63,39 +63,29 @@
         justify-content: space-between;
       }
       .nav-logo {
-        font-weight: 800;
-        font-size: 15px;
-        color: white;
         display: flex;
         align-items: center;
-        gap: 10px;
         text-decoration: none;
       }
-      .nav-logo-mark {
-        width: 28px;
-        height: 28px;
-        border-radius: 7px;
-        background: linear-gradient(135deg, var(--blue-light), var(--blue));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 13px;
-        font-weight: 900;
-        color: white;
+      .nav-logo-img {
+        height: 32px;
+        width: auto;
+        object-fit: contain;
       }
       .nav-links {
         display: flex;
         gap: 32px;
       }
       .nav-links a {
-        color: rgba(255, 255, 255, 0.55);
+        color: #475569;
         font-size: 13px;
+        font-weight: 500;
         text-decoration: none;
         transition: color 0.2s;
       }
       .nav-links a:hover,
       .nav-links a.active {
-        color: white;
+        color: #0284c7;
       }
 
       /* ── HERO ── */
@@ -654,11 +644,13 @@
     <!-- NAV -->
     <nav>
       <a href="#" class="nav-logo">
-        <div class="nav-logo-mark">B</div>
-        BSS Commerce
+        <img data-img-config="bss_logo" alt="BSS Commerce" class="nav-logo-img" />
       </a>
       <div class="nav-links">
-        <a href="#shopify">Shopify</a>
+        <a href="#shopify" style="display:flex;align-items:center;gap:6px;">
+          <img data-img-config="shopify_logo" alt="Shopify" style="height:16px;width:auto;object-fit:contain;" />
+          Shopify
+        </a>
         <!-- <a href="#apps">2 App</a>
         <a href="#training">Training</a> -->
         <a href="option.html">Training OPTIS</a>
@@ -684,7 +676,8 @@
     <section id="shopify" class="shopify-section">
       <div class="container">
         <div class="section-eyebrow">Nền tảng</div>
-        <h2 class="section-title">
+        <h2 class="section-title" style="display:flex;align-items:center;gap:14px;">
+          <img data-img-config="shopify_logo" alt="Shopify" style="height:36px;width:auto;object-fit:contain;flex-shrink:0;" />
           Shopify là <span class="accent">gì?</span>
         </h2>
         <p class="section-desc">
@@ -1209,7 +1202,10 @@
           <div class="app-card">
             <div class="app-card-top app-card-top-red">
               <div class="app-pill pill-red">Product Options</div>
-              <h3>OPTIS</h3>
+              <h3 style="display:flex;align-items:center;gap:10px;">
+                <img data-img-config="optis_logo" alt="OPTIS" style="width:28px;height:28px;border-radius:7px;background:white;padding:3px;flex-shrink:0;" />
+                OPTIS
+              </h3>
               <p>
                 Vượt giới hạn 3 option của Shopify — thêm text input, file
                 upload, date picker, conditional logic và nhiều hơn nữa vào
@@ -1247,7 +1243,10 @@
           <div class="app-card">
             <div class="app-card-top app-card-top-blue">
               <div class="app-pill pill-blue">Color Swatch</div>
-              <h3>OP Color Swatch</h3>
+              <h3 style="display:flex;align-items:center;gap:10px;">
+                <img data-img-config="swatch_logo" alt="Swatch" style="width:28px;height:28px;border-radius:7px;background:white;padding:3px;flex-shrink:0;object-fit:contain;" />
+                OP Color Swatch
+              </h3>
               <p>
                 Thay thế variant selector xấu xí của Shopify bằng swatch đẹp —
                 color, image, button — đồng thời nhóm sản phẩm cùng dòng lại với
@@ -1301,7 +1300,10 @@
           <div class="journey-step">
             <div class="journey-n j-active">✓</div>
             <div class="journey-body">
-              <h4>Trang này <span class="j-tag j-tag-now">Đang đọc</span></h4>
+              <h4 style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <img data-img-config="shopify_logo" alt="Shopify" style="height:18px;width:auto;object-fit:contain;flex-shrink:0;" />
+                Trang này <span class="j-tag j-tag-now">Đang đọc</span>
+              </h4>
               <p>
                 Hiểu Shopify, storefront, theme, product/variant và 2 app của
                 BSS.
@@ -1311,7 +1313,8 @@
           <div class="journey-step">
             <div class="journey-n j-red">2</div>
             <div class="journey-body">
-              <h4>
+              <h4 style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <img data-img-config="optis_logo" alt="OPTIS" style="width:20px;height:20px;border-radius:5px;background:white;padding:2px;flex-shrink:0;" />
                 Training OPTIS
                 <span class="j-tag j-tag-red">Product Options</span>
               </h4>
@@ -1332,7 +1335,8 @@
           <div class="journey-step">
             <div class="journey-n j-done">3</div>
             <div class="journey-body">
-              <h4>
+              <h4 style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <img data-img-config="swatch_logo" alt="Swatch" style="width:20px;height:20px;border-radius:5px;background:white;padding:2px;flex-shrink:0;object-fit:contain;" />
                 Training Swatch
                 <span class="j-tag j-tag-blue">Color Swatch</span>
               </h4>
@@ -1365,11 +1369,15 @@
     </section>
 
     <footer>
-      <p>BSS Commerce · Developer Onboarding · Internal Use Only · 2026</p>
+      <p>
+        <img data-img-config="bss_logo" alt="BSS Commerce" style="height:20px;width:auto;object-fit:contain;opacity:0.7;vertical-align:middle;margin-right:8px;" />
+        Developer Onboarding · Internal Use Only · 2026
+      </p>
       <div>
         <a href="option.html">Training OPTIS</a>
         <a href="swatch.html">Training Swatch</a>
       </div>
     </footer>
+    <script src="images.config.js"></script>
   </body>
 </html>
